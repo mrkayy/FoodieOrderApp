@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
 
+import 'screens/homeScreen.dart';
+import 'screens/orderScreen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Foodie Order',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: Main(),
-    );
-  }
-}
-
-class Main extends StatefulWidget {
-  @override
-  _MainState createState() => _MainState();
-}
-
-class _MainState extends State<Main> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: null,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.home),
-      ),
+      initialRoute: HomeScreen.id,
+      routes: <String,WidgetBuilder>{
+        HomeScreen.id: (BuildContext context) => HomeScreen(),
+        CreateOrder.id: (BuildContext context) => CreateOrder(),
+      },
     );
   }
 }
