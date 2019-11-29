@@ -11,14 +11,16 @@ class ActivityOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double scrHeight = MediaQuery.of(context).size.height;
-    double scrWudth = MediaQuery.of(context).size.width;
+    // double scrHeight = MediaQuery.of(context).size.height;
+    double scrWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: 0.40 * scrWudth,
+      width: 0.45 * scrWidth,
       padding: EdgeInsets.all(8.0),
-      child: Card(shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(17.0))),
+      child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(17.0))),
         // margin: EdgeInsets.only(right: 10.0),
-        elevation: 8.0,
+        elevation: 4.0,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(

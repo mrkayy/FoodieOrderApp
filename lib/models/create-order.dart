@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CreateOrder extends StatefulWidget {
-  static String id = "orderScreen";
+  static String id = "createOrderForm";
   @override
   _CreateOrderState createState() => _CreateOrderState();
 }
