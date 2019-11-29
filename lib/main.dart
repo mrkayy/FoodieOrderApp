@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'screens/homeScreen.dart';
-import 'screens/orderScreen.dart';
+import 'screens/mainScreen.dart';
+import 'screens/bookingScreen.dart';
+import 'screens/profileScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,10 +16,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      initialRoute: HomeScreen.id,
-      routes: <String,WidgetBuilder>{
+      initialRoute: MainScreen.id,
+      routes: <String, WidgetBuilder>{
         HomeScreen.id: (BuildContext context) => HomeScreen(),
-        CreateOrder.id: (BuildContext context) => CreateOrder(),
+        OrderScreen.id: (BuildContext context) => OrderScreen(),
+        MainScreen.id: (BuildContext context) => MainScreen(),
+        ProfileScreen.id: (BuildContext context) => ProfileScreen(),
       },
     );
   }

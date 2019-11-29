@@ -63,6 +63,15 @@ class PlaceOrder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+
+    double scrHeight = MediaQuery.of(context).size.height;
+    double scrWidth = MediaQuery.of(context).size.width;
+    return Container(
+      width:  0.40 * scrWidth,
+      height: 0.48 * scrHeight,
+      child: Card(
+        
+      ),
+    );
   }
 }
