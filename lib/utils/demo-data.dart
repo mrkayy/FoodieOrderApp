@@ -40,6 +40,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "650.00",
       vendorName: "Mama Calabar",
+      orderType: "paid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -49,6 +50,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "950.00",
       vendorName: "Mama Calabar",
+      orderType: "paid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -58,6 +60,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "450.00",
       vendorName: "Mama Calabar",
+      orderType: "unpaid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -66,7 +69,8 @@ class Demodata {
       itemCount: "9",
       customerPhone: "08090839255",
       orderAmount: "350.00",
-      vendorName: "Mama Calabar",
+      vendorName: "Aunty Pat",
+      orderType: "unpaid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -75,7 +79,8 @@ class Demodata {
       itemCount: "4",
       customerPhone: "08090839255",
       orderAmount: "300.00",
-      vendorName: "Mama Calabar",
+      vendorName: "Iya Sharon",
+      orderType: "unpaid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -85,6 +90,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "250.00",
       vendorName: "Mama Calabar",
+      orderType: "paid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -94,6 +100,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "100.00",
       vendorName: "Mama Calabar",
+      orderType: "paid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -103,6 +110,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "200.00",
       vendorName: "Mama Calabar",
+      orderType: "unpaid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -112,6 +120,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "300.00",
       vendorName: "Mama Calabar",
+      orderType: "paid",
     ),
     OrderOverView(
       timeStamp: "null",
@@ -121,6 +130,7 @@ class Demodata {
       customerPhone: "08090839255",
       orderAmount: "500.00",
       vendorName: "Mama Calabar",
+      orderType: "unpaid",
     ),
   ];
 }

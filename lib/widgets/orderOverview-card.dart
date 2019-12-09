@@ -8,6 +8,7 @@ class OrderOverView extends StatelessWidget {
   final String orderAmount;
   final String itemCount;
   final String vendorName;
+  final String orderType;
   Color sColor;
 
   OrderOverView({
@@ -17,6 +18,7 @@ class OrderOverView extends StatelessWidget {
     this.customerPhone,
     this.orderAmount,
     this.vendorName,
+    this.orderType,
     this.itemCount,
     this.sColor,
   });
@@ -81,8 +83,12 @@ class OrderOverView extends StatelessWidget {
                   heightFactor: 2.0,
                   alignment: Alignment.bottomCenter,
                   child: MaterialButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(15.0),
+                            bottomRight: Radius.circular(15.0))),
                     minWidth: 0.58 * scrData.width,
+                    height: 0.06 * scrData.height,
                     // color: Colors.grey[200],
                     onPressed: () {},
                     child: Center(
@@ -105,6 +111,22 @@ class OrderOverView extends StatelessWidget {
         //     ),
         //   ),
         // ),
+        Positioned(
+          top: 15.0,
+          left: 30.0,
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: Colors.grey[600],
+            ),
+            child: Text(
+              orderType,
+              style: TextStyle(
+                  letterSpacing: 1.0, fontSize: 11.0, color: Colors.white),
+            ),
+          ),
+        ),
         Positioned(
           top: 15.0,
           right: 30.0,

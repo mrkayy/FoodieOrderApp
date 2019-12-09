@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'homeScreen.dart';
 import 'bookingScreen.dart';
+import 'orderStatus/orderForm.dart';
 import 'profileScreen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -36,6 +37,7 @@ class _MainScreenState extends State<MainScreen>
         children: <Widget>[
           HomeScreen(),
           OrderScreen(),
+          CreateOrder(),
           ProfileScreen(),
           ProfileScreen(),
         ],
@@ -52,6 +54,7 @@ class _MainScreenState extends State<MainScreen>
             tabs: <Widget>[
               Tab(icon: Icon(Icons.home)),
               Tab(icon: Icon(Icons.note_add)),
+              Tab(icon: Icon(Icons.account_balance_wallet)),
               Tab(icon: Icon(Icons.person)),
               Tab(icon: Icon(Icons.settings)),
               // Tab(),
