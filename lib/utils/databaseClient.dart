@@ -16,7 +16,7 @@ class DatabaseHelper {
   final String columnDateCreated = "dateCreated";
   final String columnOrderItem = "orderItem";
   final String columnOrderAmount = "orderAmount";
-  final String columnQty = "qty";
+  // final String columnQty = "qty";
   final String columnPhoneNum = "phoneNum";
 
   static Database _db;
@@ -39,7 +39,7 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int verison) async {
     await db.execute(
-        "CREATE TABLE $tableName (id INTEGER PRIMARY KEY autoincrement, $columnDateCreated TEXT, $columnUserName TEXT, $columnPhoneNum TEXT, $columnOrderItem, ARRAY, $columnOrderAmount INT, $columnQty INT)");
+        "CREATE TABLE $tableName (id INTEGER PRIMARY KEY autoincrement, $columnDateCreated TEXT, $columnUserName TEXT, $columnPhoneNum TEXT, $columnOrderItem, ARRAY, $columnOrderAmount INT)");
   }
 
   //Insert in to local DB

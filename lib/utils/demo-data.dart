@@ -2,6 +2,7 @@ import '../widgets/activity-card.dart';
 import '../widgets/orderOverview-card.dart';
 
 class Demodata {
+
   static List<ActivityOverview> activities = [
     ActivityOverview(
       entryTitle: "Orders",
@@ -33,7 +34,7 @@ class Demodata {
   static List<OrderOverView> orderOverview = [
     OrderOverView(
       timeStamp: "null",
-      status: "Pending",
+      status: "Processed",
       customerName: "Femi",
       itemCount: "5",
       customerPhone: "08090839255",

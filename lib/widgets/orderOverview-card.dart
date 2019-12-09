@@ -8,6 +8,7 @@ class OrderOverView extends StatelessWidget {
   final String orderAmount;
   final String itemCount;
   final String vendorName;
+  Color sColor;
 
   OrderOverView({
     this.status,
@@ -17,54 +18,106 @@ class OrderOverView extends StatelessWidget {
     this.orderAmount,
     this.vendorName,
     this.itemCount,
+    this.sColor,
   });
-
-  final int _countOn = 0;
 
   @override
   Widget build(BuildContext context) {
-    double scrWidth = MediaQuery.of(context).size.width;
-    double scrHeight = MediaQuery.of(context).size.height;
+    final scrData = MediaQuery.of(context).size;
     return Stack(
       children: <Widget>[
-        Container(
-            width: 0.58 * scrWidth,
-            padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.symmetric(horizontal: 15.0),
-            child: Center(
-              child: Card(child: Text("STORE COUNT $_countOn"),),
-            ),),
-        Positioned(
-          top: 0.0,
-          left: 15.0,
+        Card(
+          margin: EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          elevation: 6.0,
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.green[700],
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(17.0),
-                  topRight: Radius.circular(17.0)),
+            // color: Colors.blueGrey[100],
+            // padding: EdgeInsets.all(8.0),
+            // margin: EdgeInsets.symmetric(horizontal: 15.0),
+            width: 0.58 * scrData.width,
+            height: 380, //0.50 * scrData.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0),
+                    ),
+                    color: Colors.grey[200],
+                  ),
+                  height: 0.48 * scrData.width,
+                  child: Center(
+                    child: Text(vendorName[0]),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(18.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        customerName,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        timeStamp,
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  heightFactor: 2.0,
+                  alignment: Alignment.bottomCenter,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0),bottomRight: Radius.circular(15.0))),
+                    minWidth: 0.58 * scrData.width,
+                    // color: Colors.grey[200],
+                    onPressed: () {},
+                    child: Center(
+                      child: Text("view"),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            height: 50.0,
-            width: 0.58 * scrWidth,
-            child: Center(
-                child: Text(
-              "Completed!",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-            )),
           ),
         ),
+        // Align(
+        //   alignment: Alignment.bottomCenter,
+        //   child: MaterialButton(
+        //     minWidth: 0.58 * scrData.width,
+        //     color: Colors.grey[200],
+        //     onPressed: () {},
+        //     child: Center(
+        //       child: Text("view"),
+        //     ),
+        //   ),
+        // ),
         Positioned(
-          bottom: 0.0,
-          left: 15.0,
-          child: MaterialButton(
-            minWidth: 0.58 * scrWidth,
-            height: 52.0,
-            onPressed: () {
-            },
+          top: 15.0,
+          right: 30.0,
+          child: Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: sColor,
+            ),
             child: Text(
-              "view",
-              style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16.0),
+              status,
+              style: TextStyle(
+                  letterSpacing: 1.0, fontSize: 11.0, color: Colors.white),
             ),
           ),
         )

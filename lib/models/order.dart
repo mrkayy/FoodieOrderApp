@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
-class PlaceOrder extends StatelessWidget {
+class PlaceOrder {
   int _id;
-  int _qty;
+  // int _qty;
   int _orderAmount;
   String _userName;
   String _dateCreated;
@@ -15,11 +13,11 @@ class PlaceOrder extends StatelessWidget {
     this._orderItem,
     this._phoneNum,
     this._userName,
-    this._qty,
+    // this._qty,
   );
 
   PlaceOrder.map(dynamic obj) {
-    this._qty = obj["qty"];
+    // this._qty = obj["qty"];
     this._userName = obj["userName"];
     this._orderAmount = obj["orderAmount"];
     this._orderItem = obj["orderItem"];
@@ -32,7 +30,7 @@ class PlaceOrder extends StatelessWidget {
   int get orderAmount => orderAmount;
   String get orderItem => orderItem;
   String get dateCreated => dateCreated;
-  int get qty => qty;
+  // int get qty => qty;
   String get phoneNum => phoneNum;
   int get id => id;
 
@@ -43,7 +41,7 @@ class PlaceOrder extends StatelessWidget {
     map["orderItem"] = _orderItem;
     map["dateCreated"] = _dateCreated;
     map["phoneNum"] = _phoneNum;
-    map["qty"] = _qty;
+    // map["qty"] = _qty;
 
     if (_id != null) {
       map["id"] = _id;
@@ -56,22 +54,8 @@ class PlaceOrder extends StatelessWidget {
     this._orderItem = map["orderItem"];
     this._orderAmount = map["orderAmount"];
     this._phoneNum = map["phoneNumber"];
-    this._qty = map["qty"];
+    // this._qty = map["qty"];
     this._userName = map["userName"];
     this._dateCreated = map["dateCreated"];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    double scrHeight = MediaQuery.of(context).size.height;
-    double scrWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width:  0.40 * scrWidth,
-      height: 0.48 * scrHeight,
-      child: Card(
-        
-      ),
-    );
   }
 }
