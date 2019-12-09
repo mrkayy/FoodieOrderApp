@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'screens/homeScreen.dart';
 import 'screens/mainScreen.dart';
 import 'screens/bookingScreen.dart';
+import 'screens/orderStatus/orderForm.dart';
 import 'screens/profileScreen.dart';
 
 void main() => runApp(MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         OrderScreen.id: (BuildContext context) => OrderScreen(),
         MainScreen.id: (BuildContext context) => MainScreen(),
         ProfileScreen.id: (BuildContext context) => ProfileScreen(),
+        CreateOrder.id: (BuildContext context) => CreateOrder(),
       },
     );
   }

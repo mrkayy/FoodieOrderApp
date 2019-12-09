@@ -31,6 +31,7 @@ class _MainScreenState extends State<MainScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: <Widget>[
           HomeScreen(),
@@ -40,20 +41,23 @@ class _MainScreenState extends State<MainScreen>
         ],
       ),
       bottomNavigationBar: Material(
-        child: TabBar(
-          // labelPadding: EdgeInsets.symmetric(horizontal:20.0),
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: Theme.of(context).accentColor,
-          labelColor: Theme.of(context).accentColor,
-          controller: _tabController,
-          tabs: <Widget>[
-            Tab(icon: Icon(Icons.home)),
-            Tab(icon: Icon(Icons.list)),
-            Tab(icon: Icon(Icons.person)),
-            Tab(icon: Icon(Icons.settings)),
-            // Tab(),
-            // Tab(),
-          ],
+        child: Container(
+          color: Colors.grey[100],
+          child: TabBar(
+            // labelPadding: EdgeInsets.symmetric(horizontal:20.0),
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: Theme.of(context).accentColor,
+            labelColor: Theme.of(context).accentColor,
+            controller: _tabController,
+            tabs: <Widget>[
+              Tab(icon: Icon(Icons.home)),
+              Tab(icon: Icon(Icons.note_add)),
+              Tab(icon: Icon(Icons.person)),
+              Tab(icon: Icon(Icons.settings)),
+              // Tab(),
+              // Tab(),
+            ],
+          ),
         ),
       ),
       // floatingActionButton: FloatingActionButton(

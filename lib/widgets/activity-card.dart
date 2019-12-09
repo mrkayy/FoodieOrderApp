@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class ActivityOverview extends StatelessWidget {
   final String entryTitle;
   final int totalEntry;
@@ -14,34 +16,49 @@ class ActivityOverview extends StatelessWidget {
     // double scrHeight = MediaQuery.of(context).size.height;
     double scrWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: 0.45 * scrWidth,
-      padding: EdgeInsets.all(8.0),
+      width: 0.43 * scrWidth,
+      padding: EdgeInsets.all(5.0),
       child: Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(17.0))),
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
         // margin: EdgeInsets.only(right: 10.0),
         elevation: 4.0,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Row(
             children: <Widget>[
-              Text(
-                entryTitle,
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+              Icon(
+                Icons.event_note,
+                size: 32.0,
               ),
-              RichText(
-                text: TextSpan(children: <TextSpan>[
-                  TextSpan(
-                      text: completedEntry.toString(),
-                      style: TextStyle(color: Colors.black)),
-                  TextSpan(text: "/", style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                      text: totalEntry.toString(),
-                      style: TextStyle(color: Colors.black))
-                ]),
-              )
+              SizedBox(
+                width: 8.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: Text(
+                      entryTitle,
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(children: <TextSpan>[
+                      TextSpan(
+                          text: completedEntry.toString(),
+                          style: kNotificationText),
+                      TextSpan(text: "/", style: kNotificationText),
+                      TextSpan(
+                          text: totalEntry.toString(),
+                          style: kNotificationText),
+                    ]),
+                  )
+                ],
+              ),
             ],
           ),
         ),

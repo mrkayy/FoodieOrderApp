@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/activity-card.dart';
 import '../utils/demo-data.dart';
-import '../widgets/orderOverview-card.dart';
+// import '../widgets/activity-card.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "screen-2";
@@ -13,80 +12,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double scrWidth = MediaQuery.of(context).size.width;
-    double scrHeight = MediaQuery.of(context).size.height;
+    final scrData = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.only(top: 30.0, left: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: "Foodie",
-                          style: TextStyle(color: Colors.black, fontSize: 28.0),
-                        ),
-                      ],
+              padding: const EdgeInsets.only(top: 30.0, left: 20.0,bottom:28.0,),
+              child: RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "Foodie",
+                      style: TextStyle(color: Colors.black, fontSize: 28.0),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 20.0),
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Theme.of(context).accentColor,
-                    ),
-                    height: 0.08 * scrHeight,
-                    width: 0.16 * scrWidth,
-                    child: Icon(Icons.add, size: 28.0),
-                    /*Row(
-                      // mainAxisAlignment: MainAxisAlignment.s,
-                      children: <Widget>[
-                        Icon(
-                          Icons.notifications,
-                          color: Colors.white,
-                          size: 28.0,
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          "4",
-                          style: TextStyle(fontSize: 18.0, color: Colors.white),
-                        ),
-                      ],
-                    ),*/
-                  ),
-                ],
+                    //TODO: Add user name to UI & welcome note
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 28.0),
+            // SizedBox(height: 28.0),
             Padding(
               padding: EdgeInsets.only(left: 20.0),
               child: Text(
-                "Today's Booking Activity Summary",
+                "Quick Access",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              height: 0.22 * scrWidth,
+              // margin: EdgeInsets.symmetric(horizontal: 8.0),
+              height: 0.24 * scrData.width,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount:
-                    activities.length, //TODO: Remove demo data item count
+                    Demodata.activities.length, //TODO: Remove demo data item count
                 itemBuilder: (BuildContext context, int index) {
-                  return ActivityOverview(
-                    entryTitle: "Orders",
-                    totalEntry: 10,
-                    completedEntry: 5,
-                  );
+                  return Demodata.activities[index];
                 },
               ),
             ),
@@ -100,22 +62,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              height: 0.48 * scrHeight,
+              height: 0.50 * scrData.height,
               //  Expanded(
               // flex: 4,
               //TODO: Implement future builder for dataQuery
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: Demodata.orderOverview.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return OrderOverView();
+                  var card = Demodata.orderOverview;
+                  if(card[index].status == "Completed"){
+                    card[index].sColor = Colors.green;
+                  }else if(card[index].status == "Cancelled"){
+                    card[index].sColor = Colors.red;
+                  }else if(card[index].status == "Pending"){
+                    card[index].sColor = Colors.orange;
+                  }else if(card[index].status == "Processed"){
+                    card[index].sColor = Colors.lightBlue;
+                  }
+                  return Demodata.orderOverview[index];
                 },
               ),
             ),
+            // SizedBox(height: 10.0,),
             Container(
-              //TODO: add total OrderOverview count indicator here
+              padding: EdgeInsets.symmetric(horizontal: 28.0,vertical: 10.0),
+              child: Center(child:Text("indicator goes here")),
             ),
-            // ),
           ],
         ),
       ),
