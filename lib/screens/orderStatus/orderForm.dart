@@ -91,16 +91,7 @@ class _CreateOrderState extends State<CreateOrder> {
               Divider(height: 32.0),
               Text("OrderSummary"),
               SizedBox(height: 10.0),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Text("OrderSummary"),
-                  ],
-                ),
-              ),
+              
             ],
           ),
         ),
