@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
+import '../../models/order.dart';
+import '../../utils/demo-data.dart';
 
 class CreateOrder extends StatefulWidget {
   static String id = "newOrderPG";
@@ -10,6 +11,16 @@ class CreateOrder extends StatefulWidget {
 }
 
 class _CreateOrderState extends State<CreateOrder> {
+  String sCustomerName;
+  String sCustomerPhone;
+
+  void setCustomer(String name, String phone) {
+    setState(() {
+      sCustomerName = name;
+      sCustomerPhone = phone;
+    });
+  }
+
   List<Widget> orderItem = [];
 
   @override
@@ -59,9 +70,10 @@ class _CreateOrderState extends State<CreateOrder> {
 
                     child: Icon(Icons.add),
                     onPressed: () {
-                      setState(() {
-                        orderItem.add(NewTextBox());
-                      });
+                      // setState(() {
+                      //   orderItem.add(NewTextBox());
+                      // });
+                      placeOrderDialog(context);
                     },
                   ),
 
@@ -91,11 +103,64 @@ class _CreateOrderState extends State<CreateOrder> {
               Divider(height: 32.0),
               Text("OrderSummary"),
               SizedBox(height: 10.0),
-              
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void placeOrderDialog(context) {
+    var customerList = AlertDialog(
+      content: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Select Customer",
+              style: TextStyle(
+                  fontWeight: FontWeight.w500, color: Colors.orangeAccent),
+            ),
+          ),
+          // Container(
+
+          // child:
+          //   ),
+          // ),
+          Container(
+            width: 400.0,
+            height: 500.0,
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            ),
+            child: ListView.builder(
+              itemCount: Demodata.customerInfo.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Demodata.customerInfo[index];
+              },
+            ),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () {},
+          child: Text("done"),
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text("cancel"),
+        ),
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (context) {
+        return customerList;
+      },
     );
   }
 

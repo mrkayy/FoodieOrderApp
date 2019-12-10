@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../screens/orderStatus/completeOrder.dart';
-import '../screens/orderStatus/allOrders.dart';
-import '../screens/orderStatus/cancelledOrder.dart';
-import '../screens/orderStatus/pendingOrder.dart';
-import '../widgets/orderMangerOverviewCard.dart';
-import 'orderStatus/orderForm.dart';
+import '../screens/orderManagementScreen/ordermanagment.dart';
+import '../widgets/orderStateCard.dart';
+import 'orderManagementScreen/orderForm.dart';
 
 class OrderScreen extends StatefulWidget {
   static String id = "screen-3";
@@ -147,49 +144,4 @@ class _OrderScreenState extends State<OrderScreen>
       ),
     );
   }
-/*
-  void _placeOrderDialog() {
-    var alert = AlertDialog(
-      content: Column(
-        children: <Widget>[
-          Text(
-            "Create New Order",
-            style: TextStyle(
-                fontWeight: FontWeight.w500, color: Colors.orangeAccent),
-          ),
-          // Expanded(
-          //   child:
-          TextField(
-            controller: _textController,
-            autofocus: true,
-            decoration: InputDecoration(),
-          ),
-          SizedBox(height: 8.0),
-          TextField(
-            controller: _textController,
-          )
-          // ),
-        ],
-      ),
-      actions: <Widget>[
-        FlatButton(
-          onPressed: () {
-            _submitOrder(_textController.text);
-            _textController.clear();
-          },
-          child: Text("place order"),
-        ),
-        FlatButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text("cancel"),
-        ),
-      ],
-    );
-    showDialog(
-        context: context,
-        builder: (context) {
-          return alert;
-        });
-  } 
-  */
 }

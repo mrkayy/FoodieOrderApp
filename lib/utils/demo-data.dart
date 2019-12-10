@@ -1,7 +1,59 @@
+import '../models/selectCustomer.dart';
 import '../widgets/activity-card.dart';
+import '../widgets/customerInfoCard.dart';
 import '../widgets/orderOverview-card.dart';
 
 class Demodata {
+
+  static List<CustomerCheckList> selectCustomer = [];
+
+  static List<CustomerInfoCard> customerInfo = [
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+    CustomerInfoCard(
+      name: "Michael",
+      phone: "08074927376",
+      orderCount: "13",
+    ),
+  ];
 
   static List<ActivityOverview> activities = [
     ActivityOverview(

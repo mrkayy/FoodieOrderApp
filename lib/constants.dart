@@ -14,3 +14,8 @@ const kNotificationText = TextStyle(
   color: Colors.black,
   fontWeight: FontWeight.w500,
 );
+const kContantTitle = TextStyle(
+  fontSize: 12.0,
+  color: Colors.black,
+  // fontWeight: FontWeight.w600,
+);

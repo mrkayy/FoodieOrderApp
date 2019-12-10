@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'homeScreen.dart';
-import 'bookingScreen.dart';
-import 'orderStatus/orderForm.dart';
+import 'orderScreen.dart';
+import 'customerScreen.dart';
+import 'orderManagementScreen/orderForm.dart';
 import 'profileScreen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _MainScreenState extends State<MainScreen>
           HomeScreen(),
           OrderScreen(),
           CreateOrder(),
-          ProfileScreen(),
+          CustomerContact(),
           ProfileScreen(),
         ],
       ),

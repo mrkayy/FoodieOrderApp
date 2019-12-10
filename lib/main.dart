@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'screens/customerScreen.dart';
 import 'screens/homeScreen.dart';
 import 'screens/mainScreen.dart';
-import 'screens/bookingScreen.dart';
-import 'screens/orderStatus/orderForm.dart';
+import 'screens/orderScreen.dart';
+import 'screens/orderManagementScreen/orderForm.dart';
 import 'screens/profileScreen.dart';
 
 void main() => runApp(MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         MainScreen.id: (BuildContext context) => MainScreen(),
         ProfileScreen.id: (BuildContext context) => ProfileScreen(),
         CreateOrder.id: (BuildContext context) => CreateOrder(),
+        CustomerContact.id: (BuildContext context) => CustomerContact(),
       },
     );
   }
