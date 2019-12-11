@@ -25,6 +25,10 @@ class _CustomerContactState extends State<CustomerContact> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {}, //TODO: Add dialog to create new customer
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

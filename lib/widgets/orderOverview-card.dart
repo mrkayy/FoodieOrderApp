@@ -9,7 +9,7 @@ class OrderOverView extends StatelessWidget {
   final String itemCount;
   final String vendorName;
   final String orderType;
-  Color sColor;
+ final Color sColor;
 
   OrderOverView({
     this.status,
@@ -134,7 +134,7 @@ class OrderOverView extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
-              color: sColor,
+              color: statusColor(status),
             ),
             child: Text(
               status,
@@ -145,5 +145,25 @@ class OrderOverView extends StatelessWidget {
         )
       ],
     );
+  }
+
+//menthod returns colour indicator depending on the order status
+  Color statusColor(String status){
+    switch (status) {
+      case "Completed":
+        return Colors.green;
+        break;
+      case "Cancelled":
+        return Colors.red;
+        break;
+      case "Pending":
+        return Colors.orange;
+        break;
+      case "Processed":
+        return Colors.lightBlue;
+        break;
+      default: 
+        return Colors.grey[200];
+    }
   }
 }

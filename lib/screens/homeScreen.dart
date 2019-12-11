@@ -70,16 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: Demodata.orderOverview.length,
                 itemBuilder: (BuildContext context, int index) {
-                  var card = Demodata.orderOverview;
-                  if(card[index].status == "Completed"){
-                    card[index].sColor = Colors.green;
-                  }else if(card[index].status == "Cancelled"){
-                    card[index].sColor = Colors.red;
-                  }else if(card[index].status == "Pending"){
-                    card[index].sColor = Colors.orange;
-                  }else if(card[index].status == "Processed"){
-                    card[index].sColor = Colors.lightBlue;
-                  }
                   return Demodata.orderOverview[index];
                 },
               ),

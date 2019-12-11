@@ -15,6 +15,14 @@ class PlaceOrder {
     this._userName,
     // this._qty,
   );
+  
+  int get id => _id;
+  String get userName => _userName;
+  int get orderAmount => _orderAmount;
+  List<String> get orderItem => _orderItem;
+  String get dateCreated => _dateCreated;
+  // int get qty => _qty;
+  String get phoneNum => _phoneNum;
 
   PlaceOrder.map(dynamic obj) {
     // this._qty = obj["qty"];
@@ -25,14 +33,6 @@ class PlaceOrder {
     this._phoneNum = obj["phoneNum"];
     this._id = obj["id"];
   }
-
-  String get userName => userName;
-  int get orderAmount => orderAmount;
-  String get orderItem => orderItem;
-  String get dateCreated => dateCreated;
-  // int get qty => qty;
-  String get phoneNum => phoneNum;
-  int get id => id;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
