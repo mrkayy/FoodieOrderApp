@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/demo-data.dart';
 
 class CustomerContact extends StatefulWidget {
-  static String id = "contacts";
+  static String id = "screen-5";
 
   @override
   _CustomerContactState createState() => _CustomerContactState();

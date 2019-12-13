@@ -3,7 +3,7 @@ import '../utils/demo-data.dart';
 // import '../widgets/activity-card.dart';
 
 class HomeScreen extends StatefulWidget {
-  static String id = "screen-2";
+  static String id = "screen-1";
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../screens/orderManagementScreen/ordermanagment.dart';
+import '../screens/secondaryUI/ordermanagment.dart';
 import '../widgets/orderStateCard.dart';
-import 'orderManagementScreen/orderForm.dart';
 
 class OrderScreen extends StatefulWidget {
   static String id = "screen-3";
@@ -124,24 +123,25 @@ class _OrderScreenState extends State<OrderScreen>
               ),
             ),
             Expanded(
-                child: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: _tabController,
-              children: <Widget>[
-                AllOrders(),
-                CompletedOrder(),
-                PendingOrder(),
-                CancelledOrder(),
-              ],
-            )),
+              child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: _tabController,
+                children: <Widget>[
+                  AllOrders(),
+                  CompletedOrder(),
+                  PendingOrder(),
+                  CancelledOrder(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            Navigator.pushNamed(context, CreateOrder.id), //_placeOrderDialog(),
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () =>
+      //       Navigator.pushNamed(context, CreateOrder.id), //_placeOrderDialog(),
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 }
