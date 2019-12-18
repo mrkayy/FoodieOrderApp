@@ -26,9 +26,9 @@ class CustomerInfoCard extends StatelessWidget {
         ),
         title: RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(text: name, style: kContantTitle),
+            TextSpan(text: name, style: kContactTitle),
             TextSpan(text: "\n"),
-            TextSpan(text: phone, style: kContantTitle),
+            TextSpan(text: phone, style: kContactTitle),
           ]),
         ),
         trailing: Text("Order Count: $orderCount"),

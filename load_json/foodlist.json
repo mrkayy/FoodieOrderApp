@@ -1,0 +1,200 @@
+[
+    {
+        "rice": [
+            {
+                "foodName": "fried rice",
+                "unitCose": 50.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "jollof rice",
+                "unitCose": 50.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "white rice",
+                "unitCose": 50.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "ofada rice",
+                "unitCose": 100.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    },
+    {
+        "snack": [
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    },
+    {
+        "pasta": [
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    },
+    {
+        "beef": [
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    },
+    {
+        "fish": [
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    },
+    {
+        "drink": [
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    },
+    {
+        "beans": [
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            },
+            {
+                "foodName": "",
+                "unitCose": 0.0,
+                "foodCategory": ""
+            }
+        ]
+    }
+]
