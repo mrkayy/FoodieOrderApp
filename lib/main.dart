@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './screens/customerScreen.dart';
 import './screens/homeScreen.dart';
+import './screens/splashScreen.dart';
 import './screens/orderScreen.dart';
 import './screens/foodMenuScreen.dart';
 import './screens/profileScreen.dart';
@@ -16,11 +17,13 @@ class MyApp extends StatelessWidget {
       title: 'Foodie Order',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        // accentColor: Colors.black,
+        // brightness: Brightness.dark,
       ),
       initialRoute: MainScreen.id,
       routes: <String, WidgetBuilder>{
         HomeScreen.id: (BuildContext context) => HomeScreen(),
-        // OrderScreen.id: (BuildContext context) => OrderScreen(),
+        StartScreen.id: (BuildContext context) => StartScreen(),
         MainScreen.id: (BuildContext context) => MainScreen(),
         ProfileScreen.id: (BuildContext context) => ProfileScreen(),
         FoodMenuScreen.id: (BuildContext context) => FoodMenuScreen(),
