@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import '../widgets/foodItems.dart';
 // import '../utils/bloc.dart';
 import '../utils/demo-data.dart';
+import '../widgets/customerDialogs.dart';
 
 class FoodMenuScreen extends StatefulWidget {
   static String id = "screen-2";
@@ -20,6 +21,15 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
     "FISH",
     "SNACK",
     "DRINKS",
+    "BUGGER",
+    "SUSAGE",
+    "WINE",
+    "NOODLES",
+    "DRINKS",
+    "BUGGER",
+    "SUSAGE",
+    "WINE",
+    "NOODLES"
   ];
 
   @override
@@ -71,7 +81,7 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
                           onTap: () {
                             showDialog(
                               builder: (BuildContext context) {
-                                return new AddItemToPlate(food);
+                                return new CustomerListDialog();
                               },
                               context: context,
                             );

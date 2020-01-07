@@ -38,3 +38,66 @@ class CustomerProfile{
     this._orderCount = map["orderCount"];
   }
 }
+
+
+class CreateCustomer{
+  int _id;
+  String _fName;
+  String _lName;
+  String _cPhone;
+  String _date;
+
+  CreateCustomer(this._fName,this._cPhone,this._date,[this._lName]);
+  CreateCustomer.withID(this._id,this._fName,this._cPhone,this._date,[this._lName]);
+
+  int get id => _id;
+  String get fName => _fName;
+  String get lName => _lName;
+  String get cPhone => _cPhone;
+  String get date => _date;
+
+  //create setter for fields
+  set fName(String firstName){
+    if(firstName.length <= 255){
+      this._fName = firstName;
+    }
+  }
+  set lName(String lastName){
+    if(lastName.length <= 255){
+      this._lName = lastName;
+    }
+  }
+  set cPhone(String phone){
+    if(phone.length <= 255){
+      this._cPhone = phone;
+    }
+  }
+  set date(String newDate)=>this._cPhone = newDate;
+
+  //Creating the data toMap
+  
+  Map<String,dynamic> toMap(){
+
+    var map = new Map<String,dynamic>();
+    if(_id != null){
+      map["id"] = _id;
+    }
+
+    map["fName"] = _fName;
+    map["lName"] = _lName;
+    map["cPhone"] = _cPhone;
+    map["date"] = _date;
+
+    return map;
+  }
+
+  
+  CreateCustomer.fromMap(Map<String,dynamic>map){
+    this._id = map["id"];
+    this._fName = map["fName"];
+    this._lName = map["lName"];
+    this._cPhone = map["cPhone"];
+    this._date = map["date"];
+  }
+
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'customerDialogs.dart';
 
 class FoodCateoryItem extends StatelessWidget {
   // final String foodCategory;
@@ -16,10 +17,10 @@ class FoodCateoryItem extends StatelessWidget {
     return ListTile(
       onTap: () {
         showDialog(
-          builder: (BuildContext context) {
-            return new AddItemToPlate(itemName);
-          },
           context: context,
+          builder: (BuildContext context){
+            return CustomerListDialog();
+          }
         );
       },
       leading: Icon(Icons.local_pizza),

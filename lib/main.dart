@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         // accentColor: Colors.black,
         // brightness: Brightness.dark,
       ),
-      initialRoute: MainScreen.id,
+      initialRoute: StartScreen.id,
       routes: <String, WidgetBuilder>{
         HomeScreen.id: (BuildContext context) => HomeScreen(),
         StartScreen.id: (BuildContext context) => StartScreen(),
