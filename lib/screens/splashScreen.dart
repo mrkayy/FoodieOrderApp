@@ -38,7 +38,7 @@ class _StartScreenState extends State<StartScreen> {
               // )
             ),
             child: Center(
-         child: Text("Splash Screen", style:TextStyle(fontSize: 28).copyWith(color: Colors.deepOrange)),
+         child: Text("Splash Screen", style:TextStyle(fontSize: 28).copyWith(color: Colors.white)),
       ),
           ),
     );

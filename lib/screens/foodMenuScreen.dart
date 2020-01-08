@@ -53,10 +53,17 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
               // color: Colors.grey[200],
               height: 0.18 * scrData.height,
               padding: EdgeInsets.all(10.0),
-              child: ListView(
+              child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                children: Demodata.foodCategory,
+                itemCount: Demodata.foodCategory.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Demodata.foodCategory[index];
+                },
               ),
+              // ListView(
+              //   scrollDirection: Axis.horizontal,
+              //   children: Demodata.foodCategory,
+              // ),
             ),
             Padding(
               padding:
@@ -75,13 +82,15 @@ class _FoodMenuScreenState extends State<FoodMenuScreen> {
                       (food) => Card(
                         elevation: 2.0,
                         shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25.0))),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25.0),
+                          ),
+                        ),
                         child: InkWell(
                           onTap: () {
                             showDialog(
                               builder: (BuildContext context) {
-                                return new CustomerListDialog();
+                                return new FoodItemsDialog(food);
                               },
                               context: context,
                             );

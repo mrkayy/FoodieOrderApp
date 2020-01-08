@@ -19,7 +19,7 @@ class FoodCateoryItem extends StatelessWidget {
         showDialog(
           context: context,
           builder: (BuildContext context){
-            return CustomerListDialog();
+            return ;//;FoodItemsDialog(itemName);
           }
         );
       },

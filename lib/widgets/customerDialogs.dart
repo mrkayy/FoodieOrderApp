@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
-class CustomerListDialog extends StatelessWidget {
+class FoodItemsDialog extends StatelessWidget {
+
+  String _food;
+  FoodItemsDialog(this._food);
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -10,7 +14,7 @@ class CustomerListDialog extends StatelessWidget {
       child: Container(
         height: 0.4 * MediaQuery.of(context).size.height,
         child: Center(
-          child: Text("This is a dialog test!"),
+          child: Text("$_food"),
         ),
       ),
     );
