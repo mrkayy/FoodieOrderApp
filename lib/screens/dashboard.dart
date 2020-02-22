@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/admin_info_card.dart';
+import './admin_settings.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = 'screen_1';
@@ -14,37 +15,16 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final scrData = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: Text("Foodie"),
         centerTitle: true,
       ),
-      // drawer: Drawer(
-      //   child: Column(
-      //     children: <Widget>[
-      //       Expanded(
-      //         flex: 1,
-      //         child: Container(
-      //           color: Colors.yellowAccent,
-      //           alignment: Alignment.center,
-      //           child: Text("user"),
-      //         ),
-      //       ),
-      //       Expanded(
-      //         flex: 5,
-      //         child: Container(
-      //           alignment: Alignment.center,
-      //           child: Text("items"),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Icon(Icons.add),
       ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(
         children: <Widget>[
           Expanded(
@@ -56,7 +36,7 @@ class _DashboardState extends State<Dashboard> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 18.0, vertical: 10.0),
+                        horizontal: 25, vertical: 10.0),
                     child: RichText(
                       text: TextSpan(
                         children: [
@@ -79,7 +59,8 @@ class _DashboardState extends State<Dashboard> {
                     alignment: Alignment.center,
                     width: double.infinity,
                     height: 101.0,
-                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     // color: Colors.grey[400],
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -87,7 +68,6 @@ class _DashboardState extends State<Dashboard> {
                         return AdminInfoCard(
                           cardTitle: "food Category",
                           count: (3 + (itemAt * 5)).toString(),
-                          pageId: "AdminSettingsPage.pageid",
                         );
                       },
                       itemCount: 10,
@@ -100,38 +80,205 @@ class _DashboardState extends State<Dashboard> {
           Expanded(
             flex: 3,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
-              // color: Colors.blue,
+              padding: const EdgeInsets.all(10.0),
               width: double.infinity,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Notification"),
-                  Text(DateTime.fromMillisecondsSinceEpoch(5000, isUtc: false)
-                      .toString()),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
-                    width: double.infinity,
-                    height: 0.2 * scrData.height,
+                    width: 0.87 * scrData.width,
+                    height: 0.25 * scrData.height,
                     child: Card(
-                      color: Colors.white,
-                      child: Stack(children: <Widget>[
-                        Positioned(
-                          top: 15.0,
-                          right: 15.0,
-                          child: Icon(Icons.notifications),
-                        ),
-                        Text("data"),
-                      ]),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: Stack(
+                        children: <Widget>[
+                          Positioned(
+                            top: 20.0,
+                            left: 20.0,
+                            child: Text(
+                              "Order Notifications",
+                              style: GoogleFonts.ubuntu(
+                                  color: Colors.blue,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Positioned(
+                            top: 15.0,
+                            right: 15.0,
+                            child: Icon(Icons.notifications,
+                                color: Theme.of(context).accentColor),
+                          ),
+                          Positioned(
+                            bottom: 20.0,
+                            left: 2.0,
+                            child: Container(
+                              width: 0.83 * scrData.width,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0, vertical: 10.0),
+                                    child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: "Orders\n",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11.0)),
+                                          TextSpan(
+                                            text: "20",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0, vertical: 10.0),
+                                    child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: "Customers\n",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11.0)),
+                                          TextSpan(
+                                            text: "20",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0, vertical: 10.0),
+                                    child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: "Completed\n",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 11.0)),
+                                          TextSpan(
+                                            text: "20",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                    width: double.infinity,
-                    height: 0.2 * scrData.height,
-                    child: Text("data"),
+                  Expanded(
+                    child: Container(
+                      // color: Colors.blue[400],
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
+                      alignment: Alignment.center,
+                      width: double.infinity,
+                      // height: 0.355 * scrData.height,
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 5.0,
+                        runSpacing: 5.0,
+                        children: <Widget>[
+                          Container(
+                            width: 152,
+                            height: 80,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Card(
+                                child: Center(
+                                  child: Text("Profile"),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 152,
+                            height: 80,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Card(
+                                child: Center(
+                                  child: Text("Orders"),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 152,
+                            height: 80,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Card(
+                                child: Center(
+                                  child: Text("Food Category"),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 152,
+                            height: 80,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Card(
+                                child: Center(
+                                  child: Text("Customers"),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 80,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Card(
+                                child: Center(
+                                  child: Text("Records"),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // Container(
+                          //   width: 152,
+                          //   height: 80,
+                          //   child: InkWell(
+                          //     onTap: () {},
+                          //     child: Card(
+                          //       child: Center(
+                          //         child: Text("text"),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
