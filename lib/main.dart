@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 import './screens/dashboard.dart';
 import './screens/splash_screen.dart';
-import './screens/admin_settings.dart';
+import './screens/records_page.dart';
+import './screens/customers.dart';
+import './screens/food_category_page.dart';
+import './screens/order_page.dart';
+import './screens/profile_page.dart';
+// import './screens/';
 
 // import 'constants.dart';
 
@@ -21,7 +26,11 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         SplashScreen.id: (BuildContext context) => SplashScreen(),
         Dashboard.id: (BuildContext context) => Dashboard(),
-        AdminSettingsPage.pageid: (BuildContext context) => AdminSettingsPage(),
+        RecordsPage.pageid: (BuildContext context) => RecordsPage(),
+        CustomerPage.id:(BuildContext context)=> CustomerPage(),
+        OrderPage.id:(BuildContext context)=> OrderPage(),
+        FoodCategoryPage.id:(BuildContext context)=> FoodCategoryPage(),
+        ProfilePage.id:(BuildContext context)=> ProfilePage(),
       },
     );
   }

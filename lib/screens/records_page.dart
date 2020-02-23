@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-class AdminSettingsPage extends StatefulWidget {
+class RecordsPage extends StatefulWidget {
   static String pageid = "settings";
 
   @override
-  _AdminSettingsPageState createState() => _AdminSettingsPageState();
+  _RecordsPageState createState() => _RecordsPageState();
 }
 
-class _AdminSettingsPageState extends State<AdminSettingsPage> {
+class _RecordsPageState extends State<RecordsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/admin_info_card.dart';
-import './admin_settings.dart';
+import './records_page.dart';
+import './customers.dart';
+import './food_category_page.dart';
+import './order_page.dart';
+import './profile_page.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = 'screen_1';
@@ -208,7 +212,7 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () =>Navigator.of(context).pushNamed(ProfilePage.id),
                               child: Card(
                                 child: Center(
                                   child: Text("Profile"),
@@ -220,7 +224,7 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () =>Navigator.of(context).pushNamed(OrderPage.id),
                               child: Card(
                                 child: Center(
                                   child: Text("Orders"),
@@ -232,7 +236,7 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () =>Navigator.of(context).pushNamed(FoodCategoryPage.id),
                               child: Card(
                                 child: Center(
                                   child: Text("Food Category"),
@@ -244,10 +248,10 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () =>Navigator.of(context).pushNamed(CustomerPage.id),
                               child: Card(
                                 child: Center(
-                                  child: Text("Customers"),
+                                  child: Text(CustomerPage.id),
                                 ),
                               ),
                             ),
@@ -256,7 +260,7 @@ class _DashboardState extends State<Dashboard> {
                             width: double.infinity,
                             height: 80,
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () =>Navigator.of(context).pushNamed(RecordsPage.pageid),
                               child: Card(
                                 child: Center(
                                   child: Text("Records"),
@@ -264,18 +268,6 @@ class _DashboardState extends State<Dashboard> {
                               ),
                             ),
                           ),
-                          // Container(
-                          //   width: 152,
-                          //   height: 80,
-                          //   child: InkWell(
-                          //     onTap: () {},
-                          //     child: Card(
-                          //       child: Center(
-                          //         child: Text("text"),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
