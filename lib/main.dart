@@ -7,6 +7,8 @@ import './screens/customers.dart';
 import './screens/food_category_page.dart';
 import './screens/order_page.dart';
 import './screens/profile_page.dart';
+import 'screens/register_page.dart';
+import 'screens/signin_page.dart';
 // import './screens/';
 
 // import 'constants.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         OrderPage.id:(BuildContext context)=> OrderPage(),
         FoodCategoryPage.id:(BuildContext context)=> FoodCategoryPage(),
         ProfilePage.id:(BuildContext context)=> ProfilePage(),
+        SigninPage.id:(BuildContext context)=> SigninPage(),
+        RegisterPage.id:(BuildContext context)=> RegisterPage(),
       },
     );
   }

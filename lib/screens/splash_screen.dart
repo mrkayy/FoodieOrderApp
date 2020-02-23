@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './dashboard.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import './register_page.dart';
+import './signin_page.dart';
 
 class SplashScreen extends StatefulWidget {
   static String id = "initRoute";
@@ -10,17 +11,45 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void delayScreen() {
+  bool _userAlreadyRegistered = false;
+  String userName;
+
+  Future<void> _appHasUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool prefValue = true;//prefs.getBool("has_user");
+
+    if (prefValue != null || prefValue != false) {
+      print(prefValue);
+      //get username from storage
+      userName = prefs.getString("user_name");
+      //application already has a user
+      setState(() {
+        _userAlreadyRegistered = !_userAlreadyRegistered;
+      });
+    }
+  }
+
+  void _delayScreen() {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
+      if (_userAlreadyRegistered) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    SigninPage(userName: userName)));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => RegisterPage()));
+      }
     });
   }
 
   @override
   void initState() {
     super.initState();
-    delayScreen();
+    _appHasUser().then((_) => _delayScreen());
   }
 
   @override
@@ -112,5 +141,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-
