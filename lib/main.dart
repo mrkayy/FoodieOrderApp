@@ -9,7 +9,8 @@ import './screens/order_page.dart';
 import './screens/profile_page.dart';
 import 'screens/register_page.dart';
 import 'screens/signin_page.dart';
-// import './screens/';
+import 'components/registration_complete.dart';
+
 
 // import 'constants.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ProfilePage.id:(BuildContext context)=> ProfilePage(),
         SigninPage.id:(BuildContext context)=> SigninPage(),
         RegisterPage.id:(BuildContext context)=> RegisterPage(),
+        RegistrationCompleted.id:(BuildContext context)=> RegistrationCompleted(),
       },
     );
   }

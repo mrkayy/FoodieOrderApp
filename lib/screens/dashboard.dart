@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/admin_info_card.dart';
 import './records_page.dart';
@@ -9,12 +10,31 @@ import './order_page.dart';
 import './profile_page.dart';
 
 class Dashboard extends StatefulWidget {
+  // final String userName;
+
   static String id = 'screen_1';
+
+  // const Dashboard({Key key, this.userName});
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
+  String userName;
+
+  void getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.get("user_name");
+    });
+  }
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final scrData = MediaQuery.of(context).size;
@@ -51,7 +71,7 @@ class _DashboardState extends State<Dashboard> {
                           // TextSpan(text: '\n'),
                           TextSpan(text: '\n'),
                           TextSpan(
-                            text: 'User-Name',
+                            text: '$userName',
                             style: GoogleFonts.workSans(
                                 color: Colors.black, fontSize: 21.0),
                           ),
@@ -212,7 +232,8 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () =>Navigator.of(context).pushNamed(ProfilePage.id),
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(ProfilePage.id),
                               child: Card(
                                 child: Center(
                                   child: Text("Profile"),
@@ -224,7 +245,8 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () =>Navigator.of(context).pushNamed(OrderPage.id),
+                              onTap: () =>
+                                  Navigator.of(context).pushNamed(OrderPage.id),
                               child: Card(
                                 child: Center(
                                   child: Text("Orders"),
@@ -236,7 +258,8 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () =>Navigator.of(context).pushNamed(FoodCategoryPage.id),
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(FoodCategoryPage.id),
                               child: Card(
                                 child: Center(
                                   child: Text("Food Category"),
@@ -248,7 +271,8 @@ class _DashboardState extends State<Dashboard> {
                             width: 152,
                             height: 80,
                             child: InkWell(
-                              onTap: () =>Navigator.of(context).pushNamed(CustomerPage.id),
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(CustomerPage.id),
                               child: Card(
                                 child: Center(
                                   child: Text(CustomerPage.id),
@@ -260,7 +284,8 @@ class _DashboardState extends State<Dashboard> {
                             width: double.infinity,
                             height: 80,
                             child: InkWell(
-                              onTap: () =>Navigator.of(context).pushNamed(RecordsPage.pageid),
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(RecordsPage.pageid),
                               child: Card(
                                 child: Center(
                                   child: Text("Records"),

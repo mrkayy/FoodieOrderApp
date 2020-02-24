@@ -12,15 +12,16 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool _userAlreadyRegistered = false;
-  String userName;
+  String userName, userPassword;
 
   Future<void> _appHasUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool prefValue = true; //prefs.getBool("has_user");
 
-    if (prefValue != null || prefValue != false) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool prefValue = prefs.getBool("app_has_user");
+    if (prefValue == true) {
       //get username from storage
       userName = prefs.getString("user_name");
+      userPassword = prefs.getString("password");
       //application already has a user
       setState(() {
         _userAlreadyRegistered = !_userAlreadyRegistered;
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    SigninPage(userName: userName)));
+                    SigninPage(userName: userName, password: userPassword)));
       } else {
         Navigator.pushReplacement(
             context,
@@ -45,15 +46,22 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
+  void debuging() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(await prefs.get("user_name"));
+    print(await prefs.get("password"));
+  }
+
   @override
   void initState() {
     super.initState();
+    debuging();
     _appHasUser().then((_) => _delayScreen());
   }
 
   @override
   Widget build(BuildContext context) {
-    final scrData = MediaQuery.of(context).size;
+    // final scrData = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Container(
@@ -95,8 +103,8 @@ class _SplashScreenState extends State<SplashScreen> {
                         padding: const EdgeInsets.all(15.0),
                         child: Image.asset(
                           "assets/images/applogo.png",
-                          height: 115.0/1.4,
-                          width: 115.0/1.4,
+                          height: 115.0 / 1.4,
+                          width: 115.0 / 1.4,
                         ),
                       ),
                     ),
