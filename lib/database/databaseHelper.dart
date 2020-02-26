@@ -1,7 +1,11 @@
+import 'package:foodie_user/database/databaseHelper.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io';
+
+import '../models/customers.dart';
+import '../models/customers.dart';
 
 class DatabaseHelper {
   static DatabaseHelper databaseHelper;
@@ -12,7 +16,7 @@ class DatabaseHelper {
   String customerTable = 'cusomter'; //customer table
   String foodCategoryTable = 'foodCategory'; //food category list table
   String foodSubCategoryTable = 'foodSubCategory'; //food menu list table
-  String orderTable = 'order'; //order list table
+  String orderTable = 'orderTable'; //order list table
 
   //database columns
   String colId = 'id';
@@ -25,9 +29,9 @@ class DatabaseHelper {
   String colFoodCategoryID = 'foodCategoryID';
 
   //customer table patameter
-  String colFirstName = 'fName';
-  String colLastName = 'lName';
-  String colPhoneNum = 'cPhone';
+  String colFirstName = 'firstName';
+  String colLastName = 'lastName';
+  String colPhoneNum = 'phone';
 
   //order table column parameters
   String colDate = 'date';
@@ -63,59 +67,62 @@ class DatabaseHelper {
   }
 
   createDatabase(Database db, int curVersion) async {
-    await db
-        .execute('CREATE TABLE $customerTable'
-            '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
-            '$colFirstName TEXT'
-            '$colLastName TEXT'
-            '$colPhoneNum TEXT'
-            ')')
-        .then((val) {
-      print('customer table was created!');
-    });
-    await db
-        .execute('CREATE TABLE $foodCategoryTable'
-            '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
-            '$colCategoryName TEXT'
-            ')')
-        .then((val) {
-      print('Category table was created!');
-    });
-    await db
-        .execute('CREATE TABLE $foodSubCategoryTable'
-            '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
-            '$colFoodName TEXT'
-            '$colFoodCategoryID TEXT'
-            ')')
-        .then((val) {
-      print('Food Menu table created!');
-    });
-    await db
-        .execute('CREATE TABLE $orderTable'
-            '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
-            '$colDate TEXT'
-            '$colOrderId TEXT'
-            '$colOrderItemID TEXT'
-            '$colCustomerId TEXT'
-            '$colOrderStatus TEXT'
-            '$colOrderItemAmount INT'
-            ')')
-        .then((val) {
-      print('Order table created!');
-    });
+    await db.execute('CREATE TABLE $customerTable'
+        '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
+        '$colFirstName TEXT,'
+        '$colLastName TEXT,'
+        '$colPhoneNum TEXT'
+        ')');
+    await db.execute('CREATE TABLE $foodCategoryTable'
+        '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
+        '$colCategoryName TEXT'
+        ')');
+    await db.execute('CREATE TABLE $foodSubCategoryTable'
+        '($colId INTEGER PRIMARY KEY AUTOINCREMENT,'
+        '$colFoodName TEXT,'
+        '$colFoodCategoryID TEXT'
+        ')');
+    await db.execute('''CREATE TABLE $orderTable
+            (
+              $colId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $colDate TEXT,
+            $colOrderId TEXT,
+            $colOrderItemID TEXT,
+            $colCustomerId TEXT,
+            $colOrderStatus TEXT,
+            $colOrderItemAmount TEXT
+            )''');
   }
 
 //////----<The below method deletes the entire database>----//////
+  ///Get List of Customers
+  Future<List<Customers>> getCustomers() async {
+    Database db = await database;
+    // var result = await db.rawQuery("SEKECT * FROM $customerTable");
+    List<Map> maps = await db.query(customerTable,columns: [colFirstName,colLastName,colPhoneNum]);
+    List<Customers> result = [];
+    if (maps.length > 0) {
+      for (int i = 0; i < maps.length; i++) {
+        result.add(Customers.fromMap(maps[i]));
+      }
+    }
+    return result;
+  }
 
-
-  //delete database from device
-  Future deleteCustomerDataBase() async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'customers.db';
-    _deleteDatabase(path);
+  ///Create a new Customer
+  Future<Customers> insertCustomer(Customers customers) async {
+    Database db = await database;
+    // customers.id = await db.insert(customerTable, customers.toMap());
+    db.insert(customerTable, customers.toMap());
+    return customers;
   }
 
   //handles deleting database that was created
   Future<void> _deleteDatabase(String path) =>
       databaseFactory.deleteDatabase(path);
+
+  Future close() async {
+    var db = await database;
+    db.close();
+  }
 }

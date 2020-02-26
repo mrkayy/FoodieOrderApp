@@ -46,16 +46,9 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  void debuging() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(await prefs.get("user_name"));
-    print(await prefs.get("password"));
-  }
-
   @override
   void initState() {
     super.initState();
-    debuging();
     _appHasUser().then((_) => _delayScreen());
   }
 

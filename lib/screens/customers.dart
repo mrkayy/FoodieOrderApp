@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../database/databaseHelper.dart';
+import '../models/customers.dart';
+
 class CustomerPage extends StatefulWidget {
   static String id = 'customers';
   @override
@@ -9,7 +12,15 @@ class CustomerPage extends StatefulWidget {
 }
 
 class _CustomerPageState extends State<CustomerPage> {
+  Future<List<Customers>> customerList;
+  final createCustomerFormKey = GlobalKey<FormState>();
   String userName;
+  String firstName;
+  String lastName;
+  String phoneNum;
+  var database;
+  bool isUpdating = false;
+
   void getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -17,9 +28,37 @@ class _CustomerPageState extends State<CustomerPage> {
     });
   }
 
+  void createNewCustomer() {
+    if (createCustomerFormKey.currentState.validate()) {
+      createCustomerFormKey.currentState.save();
+      Customers c = Customers(
+        // id: 0,
+        fn: firstName,
+        ln: lastName,
+        phoneNumber: phoneNum,
+      );
+      if (!isUpdating) {
+        database.insertCustomer(c);
+      } else {
+        print(firstName);
+        print(lastName);
+        print(phoneNum);
+      }
+    }
+  }
+
+  void refreshCustomersList() {
+    setState(() {
+      customerList = database.getCustomers();
+    });
+  }
+
   @override
   void initState() {
+    database = DatabaseHelper();
     getUser();
+    refreshCustomersList();
+    print(database.getCustomers());
     super.initState();
   }
 
@@ -162,15 +201,109 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
           Expanded(
             child: Container(
-                child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[],
-            )),
+              child: FutureBuilder(
+                future: customerList,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          child: ListTile(
+                            leading: Icon(Icons.person),
+                            title: Text(snapshot.data[index].fn,),
+                            trailing: Text(snapshot.data[index].ln,),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return Center(
+                    child: Text('no Customer available!'),
+                    // CircularProgressIndicator(
+                    //   backgroundColor: Color(0xff3D3D3D),
+                    // ),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.person_add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text('Create Customer'),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancel'),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      createNewCustomer();
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('ok'),
+                  ),
+                ],
+                content: Column(
+                  children: <Widget>[
+                    Form(
+                      key: createCustomerFormKey,
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            decoration:
+                                InputDecoration(labelText: "first Name"),
+                            validator: (val) {
+                              var s =
+                                  val.length > 0 ? null : "enter customer name";
+                              return s;
+                            },
+                            onSaved: (val) {
+                              return firstName = val;
+                            },
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(labelText: "last Name"),
+                            validator: (val) {
+                              var s =
+                                  val.length > 0 ? null : "enter customer name";
+                              return s;
+                            },
+                            onSaved: (val) {
+                              return lastName = val;
+                            },
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.phone,
+                            decoration:
+                                InputDecoration(labelText: "phone number"),
+                            validator: (val) {
+                              var s = val.length > 11
+                                  ? "enter customer name"
+                                  : null;
+                              return s;
+                            },
+                            onSaved: (val) {
+                              return phoneNum = val;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              barrierDismissible: false,
+            ).whenComplete(refreshCustomersList);
+          },
+          child: Icon(Icons.person_add)),
     );
   }
 }
