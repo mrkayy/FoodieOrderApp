@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../constants.dart';
 import './dashboard.dart';
 
 class SigninPage extends StatefulWidget {
@@ -17,45 +18,30 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   final confirmPassword = TextEditingController();
 
-
   @override
   void dispose() {
     confirmPassword.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final scrData = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      body: GestureDetector(
-        onTap: () {},
-        child: Container(
-          width: double.infinity,
-          height: double.infinity, //0.75 * scrData.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.blue[900].withOpacity(1),
-                Colors.blue[900].withOpacity(0.9),
-                Colors.blue[900].withOpacity(0.8),
-                Colors.blue[900].withOpacity(0.7),
-                Colors.blue[900].withOpacity(0.6),
-                Colors.blue[800].withOpacity(0.5),
-                Colors.blue[800].withOpacity(0.4),
-                Colors.blue[800].withOpacity(0.1),
-                Colors.blue[800].withOpacity(0.05),
-                Colors.blue[800].withOpacity(0.025),
-              ],
-            ),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(top: 220),
+    double textFormPadding = 0.036 * scrData.height;
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Scaffold(
+        resizeToAvoidBottomPadding: true,
+        backgroundColor: Colors.blue,
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                Container(
+                  // margin: const EdgeInsets.only(bottom:20.0),
+                  padding: const EdgeInsets.only(top: 150),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -83,55 +69,62 @@ class _SigninPageState extends State<SigninPage> {
                     ],
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  // padding: const EdgeInsets.only(bottom: 120),
+                Container(
+                  padding: const EdgeInsets.only(top: 100),
                   margin: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       RichText(
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         text: TextSpan(
                           children: [
                             TextSpan(
                               text: "Login",
                               style: GoogleFonts.workSans(
-                                fontSize: 28.0,
+                                fontSize: 32.0,
                               ),
                             ),
                             TextSpan(
-                              text: "\nWelcome back ${widget.userName}",
+                              text: "\nWelcome back ${widget.userName}!",
                               style: GoogleFonts.workSans(
-                                fontSize: 12.0,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.0,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: 0.036 * scrData.height),
+                      //Login text field
                       TextField(
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 18.0,
+                            letterSpacing: 2.5),
                         controller: confirmPassword,
-                        textInputAction: TextInputAction.go,
-                        decoration: InputDecoration(
-                            focusColor: Colors.white,
-                            hintText: "Enter Password"),
+                        decoration: kLoginDecoration,
                       ),
-                      SizedBox(height: 0.04 * scrData.height),
-                      MaterialButton(
+                      SizedBox(height: 0.036 * scrData.height),
+                      RaisedButton(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0)),
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        minWidth: 0.5 * scrData.width,
+                            borderRadius: BorderRadius.circular(10.0)),
+                        // minWidth: 0.3 * scrData.width,
+                        padding: const EdgeInsets.all(15.0),
                         color: Colors.white,
                         child: Text("Login",
-                            style: GoogleFonts.workSans(fontSize: 22.0)),
+                            style: GoogleFonts.workSans(
+                                fontSize: 16.0,
+                                color: Colors.blue[800],
+                                fontWeight: FontWeight.w400)),
                         onPressed: () {
                           if (confirmPassword.text.isNotEmpty) {
                             if (confirmPassword.text == widget.password) {
+                              FocusScope.of(context).requestFocus(FocusNode());
                               Navigator.of(context)
-                                  .popAndPushNamed(Dashboard.id);
+                                  .pushReplacementNamed(Dashboard.id);
                             }
                           }
                         },
@@ -139,8 +132,8 @@ class _SigninPageState extends State<SigninPage> {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

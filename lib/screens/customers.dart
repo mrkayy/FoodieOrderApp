@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/richtext_infoCard.dart';
+import '../database/databaseHelper.dart';
+import '../models/customers.dart';
+
 class CustomerPage extends StatefulWidget {
   static String id = 'customers';
   @override
@@ -9,7 +13,16 @@ class CustomerPage extends StatefulWidget {
 }
 
 class _CustomerPageState extends State<CustomerPage> {
+  Future<List<Customers>> customerList;
+  //global key for form
+  final createCustomerFormKey = GlobalKey<FormState>();
   String userName;
+  String firstName;
+  String lastName;
+  String phoneNum;
+  var database;
+  bool isUpdating = false;
+
   void getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -17,9 +30,33 @@ class _CustomerPageState extends State<CustomerPage> {
     });
   }
 
+  Future<void> createNewCustomer() async {
+    if (createCustomerFormKey.currentState.validate()) {
+      createCustomerFormKey.currentState.save();
+      Customers c = Customers(
+        fn: "$firstName",
+        ln: "$lastName",
+        phoneNumber: "$phoneNum",
+      );
+      if (!isUpdating) {
+        database.insertCustomer(c);
+      } else {
+        // database.upDateCustome();
+      }
+    }
+  }
+
+  void refreshCustomersList() {
+    setState(() {
+      customerList = database.getCustomers();
+    });
+  }
+
   @override
   void initState() {
+    database = DatabaseHelper();
     getUser();
+    refreshCustomersList();
     super.initState();
   }
 
@@ -64,7 +101,7 @@ class _CustomerPageState extends State<CustomerPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'User Name:',
+                                text: 'Hello:',
                                 style: GoogleFonts.workSans(
                                     color: Colors.blueAccent,
                                     fontWeight: FontWeight.bold,
@@ -90,69 +127,9 @@ class _CustomerPageState extends State<CustomerPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '30\n',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              TextSpan(
-                                text: 'Contacts',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '30\n',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              TextSpan(
-                                text: 'Contacts',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '30\n',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              TextSpan(
-                                text: 'Contacts',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        ),
+                        richTextInfoCard(info: "30", title: "Customers"),
+                        richTextInfoCard(info: "10", title: "Customer Order"),
+                        richTextInfoCard(info: "3", title: "Completed"),
                       ],
                     ),
                   ),
@@ -162,15 +139,118 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
           Expanded(
             child: Container(
-                child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[],
-            )),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 15.0),
+              child: FutureBuilder<List<Customers>>(
+                future: customerList,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          child: ListTile(
+                            trailing: IconButton(
+                                icon: Icon(Icons.delete), onPressed: () {}),
+                            leading: Icon(Icons.person),
+                            title: Text(snapshot.data[index].fn),
+                            subtitle: Text(snapshot.data[index].ln),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return Center(
+                    child: Text('no Customer available!'),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.person_add)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('Create Customer'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    createNewCustomer().then((_) {
+                      print('Customer was created');
+                      //TODO: user snackbar here
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('ok'),
+                ),
+              ],
+              content: Container(
+                height: 0.25 * scrData.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Form(
+                      key: createCustomerFormKey,
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            decoration:
+                                InputDecoration(labelText: "first Name"),
+                            validator: (val) {
+                              var s =
+                                  val.length > 0 ? null : "enter customer name";
+                              return s;
+                            },
+                            onSaved: (val) {
+                              return firstName = val;
+                            },
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(labelText: "last Name"),
+                            validator: (val) {
+                              var s =
+                                  val.length > 0 ? null : "enter customer name";
+                              return s;
+                            },
+                            onSaved: (val) {
+                              return lastName = val;
+                            },
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.phone,
+                            decoration:
+                                InputDecoration(labelText: "phone number"),
+                            validator: (val) {
+                              var s = val.length > 11
+                                  ? "enter customer name"
+                                  : null;
+                              return s;
+                            },
+                            onSaved: (val) {
+                              return phoneNum = val;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            barrierDismissible: false,
+          ).whenComplete(refreshCustomersList);
+        },
+        child: Icon(Icons.person_add),
+      ),
     );
   }
 }

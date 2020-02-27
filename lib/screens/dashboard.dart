@@ -39,9 +39,9 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final scrData = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: Text("Foodie"),
+        title: Text("Foodie", style: GoogleFonts.pacifico()),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
@@ -229,7 +229,7 @@ class _DashboardState extends State<Dashboard> {
                         runSpacing: 5.0,
                         children: <Widget>[
                           Container(
-                            width: 152,
+                            width: 0.42 * scrData.width,
                             height: 80,
                             child: InkWell(
                               onTap: () => Navigator.of(context)
@@ -242,7 +242,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           Container(
-                            width: 152,
+                            width: 0.42 * scrData.width,
                             height: 80,
                             child: InkWell(
                               onTap: () =>
@@ -255,7 +255,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           Container(
-                            width: 152,
+                            width: 0.42 * scrData.width,
                             height: 80,
                             child: InkWell(
                               onTap: () => Navigator.of(context)
@@ -268,7 +268,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           Container(
-                            width: 152,
+                            width: 0.42 * scrData.width,
                             height: 80,
                             child: InkWell(
                               onTap: () => Navigator.of(context)
