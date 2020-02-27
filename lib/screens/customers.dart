@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/richtext_infoCard.dart';
 import '../database/databaseHelper.dart';
 import '../models/customers.dart';
 
@@ -13,6 +14,7 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
   Future<List<Customers>> customerList;
+  //global key for form
   final createCustomerFormKey = GlobalKey<FormState>();
   String userName;
   String firstName;
@@ -28,21 +30,18 @@ class _CustomerPageState extends State<CustomerPage> {
     });
   }
 
-  void createNewCustomer() {
+  Future<void> createNewCustomer() async {
     if (createCustomerFormKey.currentState.validate()) {
       createCustomerFormKey.currentState.save();
       Customers c = Customers(
-        // id: 0,
-        fn: firstName,
-        ln: lastName,
-        phoneNumber: phoneNum,
+        fn: "$firstName",
+        ln: "$lastName",
+        phoneNumber: "$phoneNum",
       );
       if (!isUpdating) {
         database.insertCustomer(c);
       } else {
-        print(firstName);
-        print(lastName);
-        print(phoneNum);
+        // database.upDateCustome();
       }
     }
   }
@@ -58,7 +57,6 @@ class _CustomerPageState extends State<CustomerPage> {
     database = DatabaseHelper();
     getUser();
     refreshCustomersList();
-    print(database.getCustomers());
     super.initState();
   }
 
@@ -103,7 +101,7 @@ class _CustomerPageState extends State<CustomerPage> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'User Name:',
+                                text: 'Hello:',
                                 style: GoogleFonts.workSans(
                                     color: Colors.blueAccent,
                                     fontWeight: FontWeight.bold,
@@ -129,69 +127,9 @@ class _CustomerPageState extends State<CustomerPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '30\n',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              TextSpan(
-                                text: 'Contacts',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '30\n',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              TextSpan(
-                                text: 'Contacts',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '30\n',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              TextSpan(
-                                text: 'Contacts',
-                                style: GoogleFonts.workSans(
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.0),
-                              ),
-                            ],
-                          ),
-                        ),
+                        richTextInfoCard(info: "30", title: "Customers"),
+                        richTextInfoCard(info: "10", title: "Customer Order"),
+                        richTextInfoCard(info: "3", title: "Completed"),
                       ],
                     ),
                   ),
@@ -201,7 +139,9 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
           Expanded(
             child: Container(
-              child: FutureBuilder(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 15.0),
+              child: FutureBuilder<List<Customers>>(
                 future: customerList,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
@@ -210,9 +150,11 @@ class _CustomerPageState extends State<CustomerPage> {
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
                           child: ListTile(
+                            trailing: IconButton(
+                                icon: Icon(Icons.delete), onPressed: () {}),
                             leading: Icon(Icons.person),
-                            title: Text(snapshot.data[index].fn,),
-                            trailing: Text(snapshot.data[index].ln,),
+                            title: Text(snapshot.data[index].fn),
+                            subtitle: Text(snapshot.data[index].ln),
                           ),
                         );
                       },
@@ -220,9 +162,6 @@ class _CustomerPageState extends State<CustomerPage> {
                   }
                   return Center(
                     child: Text('no Customer available!'),
-                    // CircularProgressIndicator(
-                    //   backgroundColor: Color(0xff3D3D3D),
-                    // ),
                   );
                 },
               ),
@@ -231,27 +170,33 @@ class _CustomerPageState extends State<CustomerPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: Text('Create Customer'),
-                actions: <Widget>[
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Cancel'),
-                  ),
-                  FlatButton(
-                    onPressed: () {
-                      createNewCustomer();
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('ok'),
-                  ),
-                ],
-                content: Column(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('Create Customer'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    createNewCustomer().then((_) {
+                      print('Customer was created');
+                      //TODO: user snackbar here
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('ok'),
+                ),
+              ],
+              content: Container(
+                height: 0.25 * scrData.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Form(
                       key: createCustomerFormKey,
@@ -300,10 +245,12 @@ class _CustomerPageState extends State<CustomerPage> {
                   ],
                 ),
               ),
-              barrierDismissible: false,
-            ).whenComplete(refreshCustomersList);
-          },
-          child: Icon(Icons.person_add)),
+            ),
+            barrierDismissible: false,
+          ).whenComplete(refreshCustomersList);
+        },
+        child: Icon(Icons.person_add),
+      ),
     );
   }
 }

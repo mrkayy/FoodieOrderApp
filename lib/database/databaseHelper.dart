@@ -1,10 +1,8 @@
-import 'package:foodie_user/database/databaseHelper.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'dart:io';
 
-import '../models/customers.dart';
 import '../models/customers.dart';
 
 class DatabaseHelper {
@@ -99,27 +97,27 @@ class DatabaseHelper {
   Future<List<Customers>> getCustomers() async {
     Database db = await database;
     // var result = await db.rawQuery("SEKECT * FROM $customerTable");
-    List<Map> maps = await db.query(customerTable,columns: [colFirstName,colLastName,colPhoneNum]);
+   var maps = await db.query(customerTable,columns: [colFirstName,colLastName,colPhoneNum]);
     List<Customers> result = [];
     if (maps.length > 0) {
-      for (int i = 0; i < maps.length; i++) {
-        result.add(Customers.fromMap(maps[i]));
+      // for (int i = 0; i < maps.length; i++) {
+      //   result.add(Customers.fromMap(i));
+      // }
+      for(var c in maps){
+        result.add(Customers.fromMap(c));
       }
     }
+    print(maps.length);
     return result;
   }
 
   ///Create a new Customer
-  Future<Customers> insertCustomer(Customers customers) async {
+  Future<int> insertCustomer(Customers customers) async {
     Database db = await database;
     // customers.id = await db.insert(customerTable, customers.toMap());
-    db.insert(customerTable, customers.toMap());
-    return customers;
+    var result = db.insert(customerTable,customers.toMap());
+    return result;
   }
-
-  //handles deleting database that was created
-  Future<void> _deleteDatabase(String path) =>
-      databaseFactory.deleteDatabase(path);
 
   Future close() async {
     var db = await database;

@@ -39,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final scrData = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Colors.blue,
       appBar: AppBar(
         title: Text("Foodie", style: GoogleFonts.pacifico()),
         centerTitle: true,

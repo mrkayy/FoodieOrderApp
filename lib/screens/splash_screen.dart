@@ -88,19 +88,19 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Material(
-                      color: Colors.white,
-                      shape: CircleBorder(),
-                      elevation: 5.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Image.asset(
-                          "assets/images/applogo.png",
-                          height: 115.0 / 1.4,
-                          width: 115.0 / 1.4,
+                      Material(
+                        color: Colors.white,
+                        shape: CircleBorder(),
+                        elevation: 5.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Image.asset(
+                            "assets/images/applogo.png",
+                            height: 115.0 / 1.4,
+                            width: 115.0 / 1.4,
+                          ),
                         ),
                       ),
-                    ),
                     Text(
                       'Foodie',
                       // style: kHeadingText.copyWith(color: Colors.white, fontSize: 36.0),
