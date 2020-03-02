@@ -8,6 +8,7 @@ import './screens/food_category_page.dart';
 import './screens/order_page.dart';
 import './screens/profile_page.dart';
 import 'screens/register_page.dart';
+import 'screens/onboarding_page.dart';
 import 'screens/signin_page.dart';
 import 'components/registration_complete.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         SigninPage.id:(BuildContext context)=> SigninPage(),
         RegisterPage.id:(BuildContext context)=> RegisterPage(),
         RegistrationCompleted.id:(BuildContext context)=> RegistrationCompleted(),
+        OnboardingScreen.id:(BuildContext context)=> OnboardingScreen(),
       },
     );
   }

@@ -18,12 +18,26 @@ const kNumberInfo = TextStyle(
 const kLoginDecoration = InputDecoration(
   // filled: true,
   // fillColor: Colors.white,
-    focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.white),
-        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-    hintStyle: TextStyle(color: Colors.white),
-    enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.white),
-        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-    focusColor: Colors.white,
-    hintText: "Enter Password");
+  focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+  hintStyle: TextStyle(color: Colors.white),
+  enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white),
+      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+  focusColor: Colors.white,
+  hintText: "Enter Password",
+);
+const kRegisterDecoration = InputDecoration(
+  // filled: true,
+  // fillColor: Colors.white,
+  focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue),
+      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+  hintStyle: TextStyle(color: Colors.white),
+  enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue),
+      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+  focusColor: Colors.black,
+  hintText: "Enter ",
+);

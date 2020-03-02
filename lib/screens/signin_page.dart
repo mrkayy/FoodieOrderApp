@@ -18,6 +18,8 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   final confirmPassword = TextEditingController();
 
+  bool hidePassword = true;
+
   @override
   void dispose() {
     confirmPassword.dispose();
@@ -41,7 +43,7 @@ class _SigninPageState extends State<SigninPage> {
               children: [
                 Container(
                   // margin: const EdgeInsets.only(bottom:20.0),
-                  padding: const EdgeInsets.only(top: 150),
+                  padding: const EdgeInsets.only(top: 180),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -99,13 +101,34 @@ class _SigninPageState extends State<SigninPage> {
                       SizedBox(height: 0.036 * scrData.height),
                       //Login text field
                       TextField(
+                        obscureText: hidePassword,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
                             fontSize: 18.0,
                             letterSpacing: 2.5),
                         controller: confirmPassword,
-                        decoration: kLoginDecoration,
+                        decoration: kLoginDecoration.copyWith(
+                          suffixIcon: hidePassword
+                              ? IconButton(
+                                color: Colors.white,
+                                  icon: Icon(Icons.visibility_off),
+                                  onPressed: () {
+                                    setState(() {
+                                      hidePassword = !hidePassword;
+                                    });
+                                  },
+                                )
+                              : IconButton(
+                                color: Colors.white,
+                                  icon: Icon(Icons.visibility),
+                                  onPressed: () {
+                                    setState(() {
+                                      hidePassword = !hidePassword;
+                                    });
+                                  },
+                                ),
+                        ),
                       ),
                       SizedBox(height: 0.036 * scrData.height),
                       RaisedButton(

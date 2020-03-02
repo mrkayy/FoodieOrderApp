@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/registration_complete.dart';
+import '../constants.dart';
 
 class RegisterPage extends StatefulWidget {
   static String id = "register";
@@ -76,18 +77,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         'Join the fastest growing community of Foodie\'s',
                         style: TextStyle(fontSize: 12.0),
                       ),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: 30.0),
                       TextField(
-                        decoration:
-                            InputDecoration(hintText: 'Enter User Name'),
+                        decoration: kRegisterDecoration.copyWith(
+                            labelText: 'User Name'),
+                        // InputDecoration(hintText: 'Enter User Name'),
                         controller: userName,
                       ),
+                      SizedBox(height: 15.0),
                       TextField(
-                        decoration: InputDecoration(hintText: 'Enter Password'),
+                        decoration: kRegisterDecoration.copyWith(
+                            labelText: 'Password'),
                         controller: password,
                       ),
                       SizedBox(
-                        height: 38.0,
+                        height: 30.0,
                       ),
                       FlatButton(
                         shape: RoundedRectangleBorder(

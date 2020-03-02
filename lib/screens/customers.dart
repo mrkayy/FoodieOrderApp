@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/richtext_infoCard.dart';
+import '../controllers/create_customer_dialog.dart';
+import '../controllers/snackbar_notifier.dart';
 import '../database/databaseHelper.dart';
 import '../models/customers.dart';
 
@@ -14,14 +16,24 @@ class CustomerPage extends StatefulWidget {
 
 class _CustomerPageState extends State<CustomerPage> {
   Future<List<Customers>> customerList;
-  //global key for form
-  final createCustomerFormKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   String userName;
-  String firstName;
-  String lastName;
-  String phoneNum;
-  var database;
+
+  DatabaseHelper database;
+  var customerCount = 0;
   bool isUpdating = false;
+
+  void refreshCustomersList() {
+    setState(() {
+      customerList = database.getCustomers();
+    });
+  }
+
+  void getCustomerCount() {
+    setState(() {
+      customerCount = 0;
+    });
+  }
 
   void getUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -30,32 +42,11 @@ class _CustomerPageState extends State<CustomerPage> {
     });
   }
 
-  Future<void> createNewCustomer() async {
-    if (createCustomerFormKey.currentState.validate()) {
-      createCustomerFormKey.currentState.save();
-      Customers c = Customers(
-        fn: "$firstName",
-        ln: "$lastName",
-        phoneNumber: "$phoneNum",
-      );
-      if (!isUpdating) {
-        database.insertCustomer(c);
-      } else {
-        // database.upDateCustome();
-      }
-    }
-  }
-
-  void refreshCustomersList() {
-    setState(() {
-      customerList = database.getCustomers();
-    });
-  }
-
   @override
   void initState() {
     database = DatabaseHelper();
     getUser();
+    getCustomerCount();
     refreshCustomersList();
     super.initState();
   }
@@ -64,6 +55,7 @@ class _CustomerPageState extends State<CustomerPage> {
   Widget build(BuildContext context) {
     final scrData = MediaQuery.of(context).size;
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(
           "Customers",
@@ -127,7 +119,8 @@ class _CustomerPageState extends State<CustomerPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        richTextInfoCard(info: "30", title: "Customers"),
+                        richTextInfoCard(
+                            info: "$customerCount", title: "Customers"),
                         richTextInfoCard(info: "10", title: "Customer Order"),
                         richTextInfoCard(info: "3", title: "Completed"),
                       ],
@@ -151,10 +144,14 @@ class _CustomerPageState extends State<CustomerPage> {
                         return Card(
                           child: ListTile(
                             trailing: IconButton(
-                                icon: Icon(Icons.delete), onPressed: () {}),
+                                icon: Icon(Icons.delete), onPressed: () {
+                                  notifiey(msg:'feature disable',icons:Icons.warning,key:scaffoldKey);
+                                }),
                             leading: Icon(Icons.person),
                             title: Text(snapshot.data[index].fn),
-                            subtitle: Text(snapshot.data[index].ln),
+                            subtitle: Text(snapshot.data[index].ln +
+                                ": " +
+                                snapshot.data[index].phoneNumber),
                           ),
                         );
                       },
@@ -172,82 +169,9 @@ class _CustomerPageState extends State<CustomerPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text('Create Customer'),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Cancel'),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    createNewCustomer().then((_) {
-                      print('Customer was created');
-                      //TODO: user snackbar here
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('ok'),
-                ),
-              ],
-              content: Container(
-                height: 0.25 * scrData.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Form(
-                      key: createCustomerFormKey,
-                      child: Column(
-                        children: <Widget>[
-                          TextFormField(
-                            decoration:
-                                InputDecoration(labelText: "first Name"),
-                            validator: (val) {
-                              var s =
-                                  val.length > 0 ? null : "enter customer name";
-                              return s;
-                            },
-                            onSaved: (val) {
-                              return firstName = val;
-                            },
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(labelText: "last Name"),
-                            validator: (val) {
-                              var s =
-                                  val.length > 0 ? null : "enter customer name";
-                              return s;
-                            },
-                            onSaved: (val) {
-                              return lastName = val;
-                            },
-                          ),
-                          TextFormField(
-                            keyboardType: TextInputType.phone,
-                            decoration:
-                                InputDecoration(labelText: "phone number"),
-                            validator: (val) {
-                              var s = val.length > 11
-                                  ? "enter customer name"
-                                  : null;
-                              return s;
-                            },
-                            onSaved: (val) {
-                              return phoneNum = val;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            barrierDismissible: false,
-          ).whenComplete(refreshCustomersList);
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => createCustomerDialog(key:scaffoldKey)).whenComplete(refreshCustomersList);
         },
         child: Icon(Icons.person_add),
       ),

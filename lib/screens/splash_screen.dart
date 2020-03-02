@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import './register_page.dart';
+// import './register_page.dart';
 import './signin_page.dart';
+import './onboarding_page.dart';
 
 class SplashScreen extends StatefulWidget {
   static String id = "initRoute";
@@ -15,17 +16,25 @@ class _SplashScreenState extends State<SplashScreen> {
   String userName, userPassword;
 
   Future<void> _appHasUser() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool prefValue = prefs.getBool("app_has_user");
-    if (prefValue == true) {
-      //get username from storage
-      userName = prefs.getString("user_name");
-      userPassword = prefs.getString("password");
+
+    prefValue==null ? prefValue = false : prefValue = true; 
+
+    if (prefValue != null) {
+      print(prefValue);
+      //application already has a user
+      // setState(() {
+      // _userAlreadyRegistered = false;
+      // });
+    } else {
       //application already has a user
       setState(() {
         _userAlreadyRegistered = !_userAlreadyRegistered;
       });
+      //get username from storage
+      userName = prefs.getString("user_name");
+      userPassword = prefs.getString("password");
     }
   }
 
@@ -41,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => RegisterPage()));
+                builder: (BuildContext context) => OnboardingScreen()));
       }
     });
   }
@@ -49,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _appHasUser().then((_) => _delayScreen());
+    _appHasUser().whenComplete(() => _delayScreen());
   }
 
   @override
@@ -88,19 +97,19 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                      Material(
-                        color: Colors.white,
-                        shape: CircleBorder(),
-                        elevation: 5.0,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Image.asset(
-                            "assets/images/applogo.png",
-                            height: 115.0 / 1.4,
-                            width: 115.0 / 1.4,
-                          ),
+                    Material(
+                      color: Colors.white,
+                      shape: CircleBorder(),
+                      elevation: 5.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Image.asset(
+                          "assets/images/applogo.png",
+                          height: 115.0 / 1.4,
+                          width: 115.0 / 1.4,
                         ),
                       ),
+                    ),
                     Text(
                       'Foodie',
                       // style: kHeadingText.copyWith(color: Colors.white, fontSize: 36.0),
