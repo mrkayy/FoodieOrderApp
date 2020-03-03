@@ -15,12 +15,12 @@ createCustomer({Customers data, GlobalKey<ScaffoldState> scafKey}) async {
       key: scafKey,
       icons: Icons.thumb_up,
     );
-  }
+  }else{
   notifiey(
     msg: 'Customer details cannot be empty.',
     icons: Icons.error_outline,
     key: scafKey,
-  );
+  );}
 }
 
 Widget createCustomerDialog({GlobalKey<ScaffoldState> key}) {

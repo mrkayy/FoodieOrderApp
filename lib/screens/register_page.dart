@@ -112,8 +112,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     pass: password.text,
                                     hasRegistered: true)
                                 .then((_) {
-                              newUser = userName.text;
-                              newPassword = password.text;
+                              // newUser = userName.text;
+                              // newPassword = password.text;
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>

@@ -166,7 +166,7 @@ class DatabaseHelper {
 
 //TODO: add delete function
 
-  Future<List<FoodSubCategory>> getSubCategory() async {
+  Future<List<FoodSubCategory>> getFoodSubCategory() async {
     Database db = await database;
     var maps = await db.query(foodSubCategoryTable,
         columns: [colId, colFoodName, colFoodCategoryID]);

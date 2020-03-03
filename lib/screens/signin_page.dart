@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants.dart';
+import '../controllers/snackbar_notifier.dart';
 import './dashboard.dart';
 
 class SigninPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final confirmPassword = TextEditingController();
 
   bool hidePassword = true;
@@ -35,6 +37,7 @@ class _SigninPageState extends State<SigninPage> {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Scaffold(
+        key: scaffoldKey,
         resizeToAvoidBottomPadding: true,
         backgroundColor: Colors.blue,
         body: SingleChildScrollView(
@@ -111,7 +114,7 @@ class _SigninPageState extends State<SigninPage> {
                         decoration: kLoginDecoration.copyWith(
                           suffixIcon: hidePassword
                               ? IconButton(
-                                color: Colors.white,
+                                  color: Colors.white,
                                   icon: Icon(Icons.visibility_off),
                                   onPressed: () {
                                     setState(() {
@@ -120,7 +123,7 @@ class _SigninPageState extends State<SigninPage> {
                                   },
                                 )
                               : IconButton(
-                                color: Colors.white,
+                                  color: Colors.white,
                                   icon: Icon(Icons.visibility),
                                   onPressed: () {
                                     setState(() {
@@ -148,7 +151,19 @@ class _SigninPageState extends State<SigninPage> {
                               FocusScope.of(context).requestFocus(FocusNode());
                               Navigator.of(context)
                                   .pushReplacementNamed(Dashboard.id);
+                            } else {
+                              notifiey(
+                                icons: Icons.warning,
+                                msg: 'Incorrect password!',
+                                key: scaffoldKey,
+                              );
                             }
+                          } else {
+                            notifiey(
+                              key: scaffoldKey,
+                              msg: 'Please enter your password!',
+                              icons: Icons.warning,
+                            );
                           }
                         },
                       ),

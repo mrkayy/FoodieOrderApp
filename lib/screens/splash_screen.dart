@@ -12,35 +12,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _userAlreadyRegistered = false;
+  bool _userAlreadyRegistered;
   String userName, userPassword;
 
-  Future<void> _appHasUser() async {
+  Future<bool> _appHasUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool prefValue = prefs.getBool("app_has_user");
 
-    prefValue==null ? prefValue = false : prefValue = true; 
-
-    if (prefValue != null) {
-      print(prefValue);
-      //application already has a user
-      // setState(() {
-      // _userAlreadyRegistered = false;
-      // });
-    } else {
-      //application already has a user
-      setState(() {
-        _userAlreadyRegistered = !_userAlreadyRegistered;
-      });
-      //get username from storage
-      userName = prefs.getString("user_name");
-      userPassword = prefs.getString("password");
+    switch (prefValue.toString()) {
+      case 'null':
+        print('prefValue returned null');
+        _userAlreadyRegistered = false;
+        break;
+      case 'true':
+        _userAlreadyRegistered = true;
+        //get username from storage
+        userName = prefs.getString("user_name");
+        userPassword = prefs.getString("password");
+        break;
+      default:
     }
+    return _userAlreadyRegistered;
   }
 
-  void _delayScreen() {
+  void _delayScreen(bool appHasUser) {
     Future.delayed(Duration(seconds: 3), () {
-      if (_userAlreadyRegistered) {
+      if (appHasUser) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -58,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _appHasUser().whenComplete(() => _delayScreen());
+    _appHasUser().then((val) => _delayScreen(val));
   }
 
   @override
