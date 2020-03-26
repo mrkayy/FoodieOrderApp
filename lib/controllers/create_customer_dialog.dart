@@ -7,7 +7,7 @@ import 'snackbar_notifier.dart';
 
 final DatabaseHelper db = DatabaseHelper();
 
-createCustomer({Customers data, GlobalKey<ScaffoldState> scafKey}) async {
+void createCustomer({Customers data, GlobalKey<ScaffoldState> scafKey}) async {
   if (data.phoneNumber.isNotEmpty && data.fn.isNotEmpty && data.ln.isNotEmpty) {
     await db.insertCustomer(data);
     notifiey(

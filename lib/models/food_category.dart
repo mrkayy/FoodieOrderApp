@@ -13,5 +13,6 @@ class FoodCategory {
     var map = Map<String,dynamic>();
     map["id"] = this.id;
     map["categoryName"] = this.name;
+    return map;
   }
 }

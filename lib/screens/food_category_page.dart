@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../controllers/create_customer_dialog.dart';
+import '../controllers/create_foodCategory_dialog.dart';
 import '../database/databaseHelper.dart';
 import '../controllers/snackbar_notifier.dart';
 import '../models/food_category.dart';
@@ -15,11 +15,18 @@ class FoodCategoryPage extends StatefulWidget {
 
 class _FoodCategoryPageState extends State<FoodCategoryPage> {
   Future<List<FoodSubCategory>> subCategoryList;
+  Future<List<FoodCategory>> categoryList;
   DatabaseHelper database;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   void refreshFoodItemList() {
     setState(() {
       subCategoryList = database.getFoodSubCategory();
+    });
+  }
+
+  void refreshCategoryItemList() {
+    setState(() {
+      categoryList = database.getFoodCategory();
     });
   }
   //   void getUser() async {
@@ -33,10 +40,9 @@ class _FoodCategoryPageState extends State<FoodCategoryPage> {
   void initState() {
     database = DatabaseHelper();
     // getUser();
-    refreshFoodItemList();
+    refreshCategoryItemList();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +60,9 @@ class _FoodCategoryPageState extends State<FoodCategoryPage> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.all(20.0),
-              height: 0.25 * screenData.height,
+              // padding: const EdgeInsets.all(15.0),
+              height: 0.29 * screenData.height,
               width: double.infinity,
-              // color: Colors.blue,
               child: Column(
                 children: <Widget>[
                   Padding(
@@ -138,32 +143,64 @@ class _FoodCategoryPageState extends State<FoodCategoryPage> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 6,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            width: 0.18 * screenData.height,
-                            child: InkWell(
-                              onTap: () {},
-                              child: Card(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text('Food Category'),
-                                    Text('{13}'),
-                                  ],
-                                ),
-                              ),
+                  SizedBox(height: 8.0),
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 100.0, //0.01 * screenData.height,
+                          height: double.infinity,
+                          child: InkWell(
+                            onTap: () {
+                              // showDialog(
+                              //     barrierDismissible: false,
+                              //     context: context,
+                              //     builder: (BuildContext context) =>
+                              //         createFoodCategoryDialog(
+                              //             key: scaffoldKey));
+                              // // .whenComplete(refreshCustomersList);
+                            },
+                            child: Card(
+                              child: Center(child: Text('add')),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10.0),
+                          height: 0.09 * screenData.height,
+                          child: FutureBuilder<List<FoodCategory>>(
+                            future: categoryList,
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Container(
+                                      width: 100,
+                                      child: InkWell(
+                                        onTap: () {},
+                                        child: Card(
+                                          child: Center(
+                                              child: Text(
+                                                  snapshot.data[index].name)),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                              return Center(
+                                child: Text('no Category available!'),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -217,15 +254,10 @@ class _FoodCategoryPageState extends State<FoodCategoryPage> {
         ),
       ),
       // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.add),
-      //   onPressed: () => showDialog(
-      //     context: context,
-      //     barrierDismissible: false,
-      //     builder: (BuildContext context) {
-      //       return createCustomerDialog(key: scaffoldKey);
-      //     },
-      //   ),
-      // ),
+      //     child: Icon(Icons.add),
+      //     onPressed: () {
+      //       foodMenuList.addAll();
+      //     }),
     );
   }
 }
