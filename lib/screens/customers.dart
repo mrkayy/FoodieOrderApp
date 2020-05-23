@@ -20,7 +20,7 @@ class _CustomerPageState extends State<CustomerPage> {
   String userName;
 
   DatabaseHelper database;
-  var customerCount = 0;
+  int customerCount = 0;
   bool isUpdating = false;
 
   void refreshCustomersList() {
@@ -29,10 +29,8 @@ class _CustomerPageState extends State<CustomerPage> {
     });
   }
 
-  void getCustomerCount() {
-    setState(() {
-      customerCount = 0;
-    });
+  void getCustomerCount() async {
+    customerCount = await database.getCustomerCount();
   }
 
   void getUser() async {
@@ -102,9 +100,10 @@ class _CustomerPageState extends State<CustomerPage> {
                               TextSpan(
                                 text: '\n$userName',
                                 style: GoogleFonts.workSans(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 21.0),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 21.0,
+                                ),
                               ),
                             ],
                           ),
@@ -137,25 +136,36 @@ class _CustomerPageState extends State<CustomerPage> {
               child: FutureBuilder<List<Customers>>(
                 future: customerList,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: ListTile(
-                            trailing: IconButton(
-                                icon: Icon(Icons.delete), onPressed: () {
-                                  notifiey(msg:'feature disable',icons:Icons.warning,key:scaffoldKey);
-                                }),
-                            leading: Icon(Icons.person),
-                            title: Text(snapshot.data[index].fn),
-                            subtitle: Text(snapshot.data[index].ln +
-                                ": " +
-                                snapshot.data[index].phoneNumber),
-                          ),
-                        );
-                      },
-                    );
+                  if (snapshot.connectionState == ConnectionState.active) {
+                    return Center(child: LinearProgressIndicator());
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(
+                          child: Text('Error Occured! ${snapshot.hasError}'));
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Card(
+                            child: ListTile(
+                              trailing: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    notifiey(
+                                        msg: 'feature disable',
+                                        icons: Icons.warning,
+                                        key: scaffoldKey);
+                                  }),
+                              leading: Icon(Icons.person),
+                              title: Text(snapshot.data[index].fn),
+                              subtitle: Text(snapshot.data[index].ln +
+                                  ": " +
+                                  snapshot.data[index].phoneNumber),
+                            ),
+                          );
+                        },
+                      );
+                    }
                   }
                   return Center(
                     child: Text('no Customer available!'),
@@ -169,9 +179,13 @@ class _CustomerPageState extends State<CustomerPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) => createCustomerDialog(key:scaffoldKey)).whenComplete(refreshCustomersList);
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) =>
+                  createCustomerDialog(key: scaffoldKey)).whenComplete(() {
+            refreshCustomersList();
+            getCustomerCount();
+          });
         },
         child: Icon(Icons.person_add),
       ),

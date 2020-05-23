@@ -1,33 +1,34 @@
-class Customers {
+class UserProfile {
   int id;
-  String ln;
   String fn;
+  String userName;
   String phoneNumber;
 
-  Customers({
+  UserProfile({
     this.id,
     this.fn,
-    this.ln,
+    this.userName,
     this.phoneNumber,
   });
 
-  Customers.fromMap(Map<String, dynamic> map) {
-    this.id = map["id"];
-    this.fn = map["firstName"];
-    this.ln = map["lastName"];
-    this.phoneNumber = map["phone"];
+  factory UserProfile.fromMap(Map<String, dynamic> map) {
+    return UserProfile(
+        id: map['id'],
+        fn: map["firstName"],
+        phoneNumber: map["phone"],
+        userName: map["user"]);
   }
 
   Map<String, dynamic> toMap() {
     // var map = Map<String, dynamic>();
     // map["id"] = this.id;
     // map["firstName"] = this.fn;
-    // map["lastName"] = this.ln;
     // map["phone"] = this.phoneNumber;
+    // map["user"] = this.userName;
 
     var map = <String, dynamic>{
       'firstName': this.fn,
-      'lastName': this.ln,
+      'user': this.userName,
       'phone': this.phoneNumber,
     };
 

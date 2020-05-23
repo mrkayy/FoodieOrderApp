@@ -19,14 +19,14 @@ const kLoginDecoration = InputDecoration(
   // filled: true,
   // fillColor: Colors.white,
   focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.white),
+      borderSide: BorderSide(color: Colors.black, width: 3.0),
       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-  hintStyle: TextStyle(color: Colors.white),
   enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.white),
+      borderSide: BorderSide(color: Colors.black),
       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-  focusColor: Colors.white,
+  focusColor: Colors.black,
   hintText: "Enter Password",
+  hintStyle: TextStyle(color: Colors.black, fontSize: 13.0),
 );
 const kRegisterDecoration = InputDecoration(
   // filled: true,
@@ -34,10 +34,10 @@ const kRegisterDecoration = InputDecoration(
   focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blue),
       borderRadius: BorderRadius.all(Radius.circular(10.0))),
-  hintStyle: TextStyle(color: Colors.white),
   enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.blue),
       borderRadius: BorderRadius.all(Radius.circular(10.0))),
   focusColor: Colors.black,
   hintText: "Enter ",
+  hintStyle: TextStyle(color: Colors.white),
 );

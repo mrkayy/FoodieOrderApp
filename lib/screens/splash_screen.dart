@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import './register_page.dart';
+
 import './signin_page.dart';
 import './onboarding_page.dart';
 
@@ -13,7 +13,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool _userAlreadyRegistered;
-  String userName, userPassword;
+  String userName;
 
   Future<bool> _appHasUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -21,14 +21,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
     switch (prefValue.toString()) {
       case 'null':
-        print('prefValue returned null');
+        print('first time user!');
         _userAlreadyRegistered = false;
         break;
       case 'true':
         _userAlreadyRegistered = true;
         //get username from storage
         userName = prefs.getString("user_name");
-        userPassword = prefs.getString("password");
         break;
       default:
     }
@@ -42,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    SigninPage(userName: userName, password: userPassword)));
+                    SigninPage(userName: userName)));
       } else {
         Navigator.pushReplacement(
             context,
@@ -95,18 +94,31 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Material(
-                      color: Colors.white,
-                      shape: CircleBorder(),
-                      elevation: 5.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      elevation: 4.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40.0),
                         child: Image.asset(
                           "assets/images/applogo.png",
-                          height: 115.0 / 1.4,
-                          width: 115.0 / 1.4,
+                          height: 115.0,
+                          width: 115.0,
                         ),
                       ),
                     ),
+                    // Material(
+                    //   color: Colors.white,
+                    //   shape: CircleBorder(),
+                    //   elevation: 5.0,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(15.0),
+                    //     child: Image.asset(
+                    //       "assets/images/applogo.png",
+                    //       height: 115.0 / 1.4,
+                    //       width: 115.0 / 1.4,
+                    //     ),
+                    //   ),
+                    // ),
                     Text(
                       'Foodie',
                       // style: kHeadingText.copyWith(color: Colors.white, fontSize: 36.0),

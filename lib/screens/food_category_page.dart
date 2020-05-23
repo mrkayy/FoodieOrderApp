@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// import '../controllers/create_foodCategory_dialog.dart';
+// import '../models/food_subcategory.dart';
+import '../components/food_listing_page.dart';
+// import '../components/info_card.dart';
+import '../components/richtext_infoCard.dart';
 import '../controllers/create_foodCategory_dialog.dart';
 import '../database/databaseHelper.dart';
-import '../controllers/snackbar_notifier.dart';
+// import '../controllers/snackbar_notifier.dart';
 import '../models/food_category.dart';
-import '../models/food_subcategory.dart';
 
 class FoodCategoryPage extends StatefulWidget {
   static String id = "foodCatPage";
@@ -14,39 +18,41 @@ class FoodCategoryPage extends StatefulWidget {
 }
 
 class _FoodCategoryPageState extends State<FoodCategoryPage> {
-  Future<List<FoodSubCategory>> subCategoryList;
+  // Future<List<FoodSubCategory>> categoryList;
   Future<List<FoodCategory>> categoryList;
   DatabaseHelper database;
+  int categoryCount;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  void refreshFoodItemList() {
-    setState(() {
-      subCategoryList = database.getFoodSubCategory();
-    });
-  }
+
+  // void refreshFoodItemList() {
+  //   setState(() {
+  //     subCategoryList = database.getFoodSubCategory();
+  //   });
+  // }
 
   void refreshCategoryItemList() {
     setState(() {
       categoryList = database.getFoodCategory();
     });
   }
-  //   void getUser() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     userName = prefs.get("user_name");
-  //   });
-  // }
+
+  void getFoodCategoryCount() async {
+    // setState(() async {
+    categoryCount = await database.getFoodCategoryCount();
+    // });
+  }
 
   @override
   void initState() {
     database = DatabaseHelper();
-    // getUser();
     refreshCategoryItemList();
+    getFoodCategoryCount();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenData = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -56,208 +62,130 @@ class _FoodCategoryPageState extends State<FoodCategoryPage> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              // padding: const EdgeInsets.all(15.0),
-              height: 0.29 * screenData.height,
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
+      // constraints: BoxConstraints.expand(),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15.0,
+              vertical: 10.0,
+            ),
+            color: Colors.grey[100],
+            height: 0.42 * screenSize.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  height: 0.1 * screenSize.height,
+                  child: Card(
                     child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Food Categories\n',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontFamily: "WorkSans ",
-                                  color: Color(0xff3d3d3d),
-                                ),
-                              ),
-                              TextSpan(
-                                text: '{32}',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: "WorkSans ",
-                                  color: Color(0xff3d3d3d),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Food Menu\n',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontFamily: "WorkSans ",
-                                  color: Color(0xff3d3d3d),
-                                ),
-                              ),
-                              TextSpan(
-                                text: '{32}',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: "WorkSans ",
-                                  color: Color(0xff3d3d3d),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Food Menu\n',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontFamily: "WorkSans ",
-                                  color: Color(0xff3d3d3d),
-                                ),
-                              ),
-                              TextSpan(
-                                text: '{32}',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: "WorkSans ",
-                                  color: Color(0xff3d3d3d),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
+                        richTextInfoCard(
+                            info: "$categoryCount", title: "Food Category"),
+                        richTextInfoCard(info: "10", title: "Customer Order"),
+                        richTextInfoCard(info: "3", title: "Completed"),
                       ],
                     ),
                   ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 100.0, //0.01 * screenData.height,
-                          height: double.infinity,
-                          child: InkWell(
-                            onTap: () {
-                              // showDialog(
-                              //     barrierDismissible: false,
-                              //     context: context,
-                              //     builder: (BuildContext context) =>
-                              //         createFoodCategoryDialog(
-                              //             key: scaffoldKey));
-                              // // .whenComplete(refreshCustomersList);
-                            },
-                            child: Card(
-                              child: Center(child: Text('add')),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10.0),
-                          height: 0.09 * screenData.height,
-                          child: FutureBuilder<List<FoodCategory>>(
-                            future: categoryList,
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                return ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Container(
-                                      width: 100,
-                                      child: InkWell(
-                                        onTap: () {},
-                                        child: Card(
-                                          child: Center(
-                                              child: Text(
-                                                  snapshot.data[index].name)),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                              return Center(
-                                child: Text('no Category available!'),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(32.0)),
                 ),
-                child: FutureBuilder<List<FoodSubCategory>>(
-                  future: subCategoryList,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                SizedBox(height: 18),
+                Text(
+                  'Food Category from: ',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                SizedBox(height: 8),
+                Text('Food Category from: ',
+                    style: Theme.of(context).textTheme.caption),
+              ],
+            ),
+          ),
+          // Container(
+          //   margin: const EdgeInsets.all(8.0),
+          //   height: 0.21 * screenData.height,
+          //   child: Card(
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //       children: <Widget>[
+          //         richTextInfoCard(
+          //             info: "$categoryCount", title: "Food Category"),
+          //         richTextInfoCard(info: "10", title: "Customer Order"),
+          //         richTextInfoCard(info: "3", title: "Completed"),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(18.0),
+              child: FutureBuilder<List<FoodCategory>>(
+                // child: FutureBuilder<List<FoodSubCategory>>(
+                future: categoryList,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.active) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
                       return ListView.builder(
                         itemCount: snapshot.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Card(
-                            child: ListTile(
-                              trailing: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    notifiey(
-                                        msg: 'feature disable',
-                                        icons: Icons.warning,
-                                        key: scaffoldKey);
-                                  }),
-                              leading: Icon(Icons.person),
-                              title: Text(snapshot.data[index].fn),
-                              subtitle: Text(snapshot.data[index].ln +
-                                  ": " +
-                                  snapshot.data[index].phoneNumber),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => FoodListing(
+                                      foodCategory: snapshot.data[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(20.0),
+                                // width: 120.0,
+                                child: Column(
+                                  children: [
+                                    Text(snapshot.data[index].id.toString()),
+                                    Text(snapshot.data[index].name),
+                                    Text(snapshot.data[index].className),
+                                    Text(snapshot.data[index].status
+                                        ? 'Avaliable'
+                                        : 'Out of order'),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
                         },
                       );
                     }
-                    return Center(
-                      child: Text(
-                        'no food item available!',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  },
-                ),
+                  }
+                  return Center(
+                    child: Text('No Food Category Available!'),
+                  );
+                },
               ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     child: Icon(Icons.add),
-      //     onPressed: () {
-      //       foodMenuList.addAll();
-      //     }),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.playlist_add),
+          onPressed: () {
+            showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) =>
+                        createFoodCategoryDialog(key: scaffoldKey))
+                .whenComplete(() {
+              refreshCategoryItemList();
+              getFoodCategoryCount();
+            });
+            // foodMenuList.addAll();
+          }),
     );
   }
 }

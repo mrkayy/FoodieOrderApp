@@ -7,16 +7,16 @@ Widget richTextInfoCard({String info, String title}) {
     text: TextSpan(
       children: [
         TextSpan(
-          text: info,
-          style: GoogleFonts.workSans(
-              color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18.0),
-        ),
-        TextSpan(
-          text: '\n$title',
+          text: '$title \n',
           style: GoogleFonts.workSans(
               color: Colors.blueAccent,
               fontWeight: FontWeight.bold,
               fontSize: 12.0),
+        ),
+        TextSpan(
+          text: info,
+          style: GoogleFonts.workSans(
+              color: Colors.black, fontWeight: FontWeight.w300, fontSize: 18.0),
         ),
       ],
     ),

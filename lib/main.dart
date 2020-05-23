@@ -10,8 +10,7 @@ import './screens/profile_page.dart';
 import 'screens/register_page.dart';
 import 'screens/onboarding_page.dart';
 import 'screens/signin_page.dart';
-import 'components/registration_complete.dart';
-
+import 'screens/registration_complete.dart';
 
 // import 'constants.dart';
 
@@ -31,14 +30,15 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (BuildContext context) => SplashScreen(),
         Dashboard.id: (BuildContext context) => Dashboard(),
         RecordsPage.pageid: (BuildContext context) => RecordsPage(),
-        CustomerPage.id:(BuildContext context)=> CustomerPage(),
-        OrderPage.id:(BuildContext context)=> OrderPage(),
-        FoodCategoryPage.id:(BuildContext context)=> FoodCategoryPage(),
-        ProfilePage.id:(BuildContext context)=> ProfilePage(),
-        SigninPage.id:(BuildContext context)=> SigninPage(),
-        RegisterPage.id:(BuildContext context)=> RegisterPage(),
-        RegistrationCompleted.id:(BuildContext context)=> RegistrationCompleted(),
-        OnboardingScreen.id:(BuildContext context)=> OnboardingScreen(),
+        CustomerPage.id: (BuildContext context) => CustomerPage(),
+        OrderPage.id: (BuildContext context) => OrderPage(),
+        FoodCategoryPage.id: (BuildContext context) => FoodCategoryPage(),
+        ProfilePage.id: (BuildContext context) => ProfilePage(),
+        SigninPage.id: (BuildContext context) => SigninPage(),
+        RegisterPage.id: (BuildContext context) => RegisterPage(),
+        RegistrationCompleted.id: (BuildContext context) =>
+            RegistrationCompleted(),
+        OnboardingScreen.id: (BuildContext context) => OnboardingScreen(),
       },
     );
   }

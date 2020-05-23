@@ -11,6 +11,7 @@ class AdminInfoCard extends StatelessWidget {
     return Container(
       width: 0.3 * scrData.height,
       child: Card(
+        elevation: 3.0,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         child: Padding(

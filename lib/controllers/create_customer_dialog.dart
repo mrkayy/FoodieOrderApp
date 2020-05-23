@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../database/databaseHelper.dart';
 
 import '../models/customers.dart';
-import 'snackbar_notifier.dart';
+import './snackbar_notifier.dart';
+import '../database/databaseHelper.dart';
 
 final DatabaseHelper db = DatabaseHelper();
 
